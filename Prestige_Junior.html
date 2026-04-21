@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prestige Junior | Prestige Lingua</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pl-navy:#0C1F3F; --pl-gold:#C9A84C; --pl-gold-pale:#F7EDD0;
+  --teal:#0E7490; --teal-light:#E0F2FE; --teal-border:#7DD3FC;
+  --purple:#7C3AED; --purple-light:#EDE9FE; --purple-border:#C4B5FD;
+  --green:#166534; --green-bg:#DCFCE7; --green-border:#86EFAC;
+  --orange:#C2410C; --orange-bg:#FEF3E2; --orange-border:#FED7AA;
+  --red:#991B1B; --red-bg:#FEF2F2; --red-border:#FECACA;
+  --slate:#64748B; --slate-light:#CBD5E1;
+  --border:#E2E8F0; --cream:#FAFAF9; --white:#FFFFFF;
+  --sh-sm:0 1px 3px rgba(0,0,0,.08); --sh-md:0 4px 16px rgba(0,0,0,.1); --sh-lg:0 8px 32px rgba(0,0,0,.15);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--pl-navy);min-height:100vh;}
+
+/* HEADER */
+.hdr{background:var(--pl-navy);height:58px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.3);}
+.hdr-left{display:flex;align-items:center;gap:10px;}
+.logo-mark{width:32px;height:32px;background:var(--pl-gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:700;color:var(--pl-navy);}
+.logo-text{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:#fff;}
+.logo-badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700;letter-spacing:.5px;}
+.hdr-right{display:flex;align-items:center;gap:10px;}
+.save-dot{width:8px;height:8px;background:#22C55E;border-radius:50%;opacity:0;transition:opacity .3s;}
+.save-dot.show{opacity:1;}
+.hdr-btn{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px;font-family:'Nunito',sans-serif;font-weight:600;transition:all .15s;}
+.hdr-btn:hover{background:rgba(255,255,255,.15);color:#fff;}
+
+/* STEPS */
+.steps-wrap{background:#152B52;padding:0 28px;overflow-x:auto;}
+.steps{display:flex;min-width:600px;}
+.step-btn{flex:1;padding:10px 4px;background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;color:rgba(255,255,255,.4);font-size:10px;font-family:'Nunito',sans-serif;font-weight:700;letter-spacing:.5px;text-transform:uppercase;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.step-num{width:20px;height:20px;border-radius:50%;border:1.5px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;transition:all .2s;}
+.step-btn.active{color:var(--pl-gold);border-bottom-color:var(--pl-gold);}
+.step-btn.active .step-num{background:var(--pl-gold);border-color:var(--pl-gold);color:var(--pl-navy);}
+.step-btn.done{color:#4ADE80;border-bottom-color:rgba(74,222,128,.3);}
+.step-btn.done .step-num{background:rgba(74,222,128,.15);border-color:#4ADE80;color:#4ADE80;}
+
+/* MAIN */
+.main{max-width:800px;margin:0 auto;padding:24px 16px 80px;}
+.section{display:none;}
+.section.active{display:block;animation:fadeUp .25s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+
+/* TYPOGRAPHY */
+.page-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;line-height:1.2;margin-bottom:4px;}
+.page-sub{font-size:13px;color:var(--slate);margin-bottom:20px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.dot{width:4px;height:4px;background:var(--pl-gold);border-radius:50%;display:inline-block;}
+
+/* CARDS */
+.card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:20px;box-shadow:var(--sh-sm);margin-bottom:14px;}
+.card-title{font-size:15px;font-weight:700;color:var(--pl-navy);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-group{display:flex;flex-direction:column;gap:4px;}
+.form-group.full{grid-column:1/-1;}
+.form-label{font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.8px;}
+.form-input{background:#F8FAFC;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-size:14px;font-family:'Nunito',sans-serif;color:var(--pl-navy);outline:none;transition:border-color .2s,background .2s;}
+.form-input:focus{border-color:var(--teal);background:var(--white);}
+.form-input option{color:var(--pl-navy);}
+
+/* AGE GRID */
+.age-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:8px;}
+.age-card{background:#F8FAFC;border:2px solid var(--border);border-radius:10px;padding:14px 12px;cursor:pointer;text-align:center;transition:all .15s;user-select:none;}
+.age-card:hover{border-color:var(--teal);background:var(--teal-light);}
+.age-card.selected{border-color:var(--teal);background:var(--teal-light);}
+.age-card .ac-age{font-size:20px;font-weight:800;color:var(--pl-navy);line-height:1;}
+.age-card .ac-grade{font-size:11px;color:var(--slate);margin-top:2px;font-weight:600;}
+.age-card .ac-emoji{font-size:22px;margin-bottom:4px;}
+
+/* SCORE INPUT */
+.score-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px;}
+.score-display{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:700;color:var(--pl-navy);line-height:1;min-width:120px;text-align:center;}
+.score-slider{width:100%;max-width:400px;-webkit-appearance:none;height:8px;border-radius:4px;background:linear-gradient(to right,var(--teal) 0%, var(--teal) var(--pct,0%), var(--border) var(--pct,0%), var(--border) 100%);outline:none;cursor:pointer;}
+.score-slider::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--teal);border:3px solid white;box-shadow:var(--sh-sm);cursor:pointer;}
+.score-labels{display:flex;justify-content:space-between;width:100%;max-width:400px;font-size:11px;color:var(--slate);font-weight:700;}
+.score-hint{font-size:12px;color:var(--slate);text-align:center;}
+
+/* RESULT CARD */
+.result-hero{border-radius:14px;padding:24px 28px;margin-bottom:16px;box-shadow:var(--sh-lg);}
+.result-hero.teddy{background:linear-gradient(135deg,#7C3AED,#5B21B6);}
+.result-hero.savvy{background:linear-gradient(135deg,#0E7490,#0369A1);}
+.result-hero.bearton{background:linear-gradient(135deg,#C2410C,#9A3412);}
+.result-hero.imagine{background:linear-gradient(135deg,#166534,#14532D);}
+.result-hero.edwards{background:linear-gradient(135deg,#1D4ED8,#1E40AF);}
+.result-hero.ngl{background:linear-gradient(135deg,#0C1F3F,#152B52);}
+.result-hero.close-up{background:linear-gradient(135deg,#92400E,#78350F);}
+.result-label{font-size:11px;color:rgba(255,255,255,.65);text-transform:uppercase;letter-spacing:1.2px;font-weight:700;margin-bottom:6px;}
+.result-course{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:#fff;line-height:1.1;}
+.result-sub{font-size:14px;color:rgba(255,255,255,.75);margin-top:6px;font-weight:600;}
+.result-score-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);padding:4px 12px;border-radius:20px;font-size:12px;color:rgba(255,255,255,.9);font-weight:700;margin-top:10px;}
+
+/* QUALIFIER LINKS */
+.qual-section{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px;box-shadow:var(--sh-sm);}
+.qual-header{background:#F8FAFC;padding:12px 16px;font-size:13px;font-weight:700;color:var(--pl-navy);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+.qual-body{padding:14px 16px;}
+.qual-note{font-size:12.5px;color:var(--slate);line-height:1.6;margin-bottom:12px;background:#FFFBEB;border:1px solid #FDE68A;padding:8px 12px;border-radius:7px;}
+.qual-links{display:flex;gap:10px;flex-wrap:wrap;}
+.qual-link{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;transition:all .15s;border:1.5px solid;}
+.qual-link.primary{background:var(--pl-navy);color:var(--pl-gold);border-color:var(--pl-navy);}
+.qual-link.primary:hover{background:#152B52;transform:translateY(-1px);box-shadow:var(--sh-md);}
+.qual-link.secondary{background:var(--white);color:var(--pl-navy);border-color:var(--border);}
+.qual-link.secondary:hover{border-color:var(--pl-navy);background:#F8FAFC;}
+.qual-link.interp{background:#F0FDF4;color:var(--green);border-color:var(--green-border);}
+.qual-link.interp:hover{background:var(--green-bg);}
+
+/* CONVO GUIDE */
+.convo-intro{background:var(--pl-navy);color:rgba(255,255,255,.85);border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.65;margin-bottom:14px;}
+.convo-intro strong{color:var(--pl-gold);}
+.convo-block{background:var(--white);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:var(--sh-sm);}
+.convo-block-hdr{background:#F8FAFC;padding:11px 16px;font-size:12.5px;font-weight:700;color:var(--pl-navy);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px;}
+.convo-q{padding:10px 16px;border-bottom:1px solid #F3F4F6;font-size:13.5px;color:var(--pl-navy);font-weight:500;line-height:1.45;display:flex;align-items:flex-start;gap:10px;}
+.convo-q:last-child{border-bottom:none;}
+.convo-q-num{width:20px;height:20px;background:var(--pl-navy);color:var(--pl-gold);border-radius:50%;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;font-family:'Cormorant Garamond',serif;}
+.convo-pl{background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:12px 14px;font-size:13px;color:#1E40AF;line-height:1.6;font-style:italic;margin:10px 16px;}
+
+/* NOTES */
+.notes-ta{width:100%;background:#F8FAFC;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-size:13px;font-family:'Nunito',sans-serif;color:var(--pl-navy);resize:vertical;min-height:70px;outline:none;transition:border-color .2s;}
+.notes-ta:focus{border-color:var(--teal);background:var(--white);}
+.notes-ta::placeholder{color:var(--slate-light);}
+
+/* CHIPS */
+.chip-wrap{display:flex;flex-wrap:wrap;gap:7px;margin-top:7px;}
+.chip{padding:5px 12px;border-radius:20px;border:1.5px solid var(--border);background:#F8FAFC;color:var(--pl-navy);font-family:'Nunito',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;}
+.chip:hover{background:var(--teal-light);border-color:var(--teal-border);}
+.chip.selected{background:var(--pl-navy);color:var(--pl-gold);border-color:var(--pl-navy);}
+
+/* NAV BUTTONS */
+.nav-btns{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:20px;border-top:1px solid var(--border);}
+.btn{padding:10px 22px;border-radius:8px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;cursor:pointer;border:none;transition:all .15s;display:flex;align-items:center;gap:6px;}
+.btn-primary{background:var(--pl-navy);color:var(--pl-gold);}
+.btn-primary:hover{background:#152B52;transform:translateY(-1px);box-shadow:var(--sh-md);}
+.btn-ghost{background:transparent;color:var(--slate);border:1.5px solid var(--border);}
+.btn-ghost:hover{border-color:var(--pl-navy);color:var(--pl-navy);}
+.btn-teal{background:var(--teal);color:#fff;}
+.btn-teal:hover{background:#0369A1;transform:translateY(-1px);box-shadow:var(--sh-md);}
+
+/* SESSION */
+.session-banner{background:#FFFBEB;border:1px solid #FDE68A;border-radius:9px;padding:10px 14px;margin-bottom:16px;font-size:13px;color:var(--pl-navy);display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.session-banner.hidden{display:none;}
+
+/* TEDDY DIRECT */
+.teddy-card{background:linear-gradient(135deg,#7C3AED,#5B21B6);border-radius:14px;padding:24px 28px;color:#fff;text-align:center;margin-bottom:16px;}
+.teddy-emoji{font-size:48px;margin-bottom:10px;}
+.teddy-title{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;margin-bottom:6px;}
+.teddy-sub{font-size:14px;color:rgba(255,255,255,.75);font-weight:600;}
+.teddy-note{background:rgba(255,255,255,.12);border-radius:8px;padding:12px 14px;font-size:13px;color:rgba(255,255,255,.85);margin-top:14px;line-height:1.6;text-align:left;}
+
+/* PRINT — karta Office */
+@media print{
+  body * { visibility: hidden; }
+  #office-report, #office-report * { visibility: visible; }
+  #office-report { position: fixed; top: 0; left: 0; width: 100%; padding: 20mm; border: none !important; }
+  .card-title, .btn { display: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-left">
+    <div class="logo-mark">PL</div>
+    <div>
+      <div class="logo-text">Prestige Lingua</div>
+    </div>
+    <div class="logo-badge">PRESTIGE JUNIOR</div>
+  </div>
+  <div class="hdr-right">
+    <div class="save-dot" id="saveDot"></div>
+    <button class="hdr-btn" onclick="newSession()">↺ Nowa sesja</button>
+  </div>
+</header>
+
+<!-- STEPS -->
+<div class="steps-wrap">
+  <div class="steps">
+    <button class="step-btn active" onclick="goTo(0)" id="step-0"><div class="step-num">1</div><span>Dane</span></button>
+    <button class="step-btn" onclick="goTo(1)" id="step-1"><div class="step-num">🎂</div><span>Wiek</span></button>
+    <button class="step-btn" onclick="goTo(2)" id="step-2"><div class="step-num">📝</div><span>Test</span></button>
+    <button class="step-btn" onclick="goTo(3)" id="step-3"><div class="step-num">🎯</div><span>Sugestia</span></button>
+    <button class="step-btn" onclick="goTo(4)" id="step-4"><div class="step-num">🔗</div><span>Kwalifikator</span></button>
+    <button class="step-btn" onclick="goTo(5)" id="step-5"><div class="step-num">💬</div><span>Rozmowa</span></button>
+    <button class="step-btn" onclick="goTo(6)" id="step-6"><div class="step-num">✅</div><span>Decyzja</span></button>
+  </div>
+</div>
+
+<main class="main">
+
+<!-- ═══ 0 — DANE ═══ -->
+<section class="section active" id="sec-0">
+  <div class="page-title">👋 Prestige Junior</div>
+  <div class="page-sub">Kwalifikator dla dzieci i młodzieży <span class="dot"></span> oparty na Poradniku Poziomowania</div>
+
+  <div id="session-banner" class="session-banner hidden">
+    📂 <span id="session-text">Wczytano poprzednią sesję.</span>
+    <button class="hdr-btn" onclick="newSession()" style="font-size:12px;">Wyczyść</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">👤 Dane ucznia</div>
+    <div class="form-grid">
+      <div class="form-group"><label class="form-label">Imię ucznia</label><input class="form-input" id="fname" placeholder="np. Zosia" oninput="sf('fname',this.value)"></div>
+      <div class="form-group"><label class="form-label">Nazwisko ucznia</label><input class="form-input" id="lname" placeholder="np. Nowak" oninput="sf('lname',this.value)"></div>
+      <div class="form-group"><label class="form-label">Data kwalifikacji</label><input class="form-input" id="evalDate" type="date" onchange="sf('evalDate',this.value)"></div>
+      <div class="form-group"><label class="form-label">Lektor / Metodyk</label><input class="form-input" id="lektor" placeholder="np. Zuzia M." oninput="sf('lektor',this.value)"></div>
+      <div class="form-group">
+        <label class="form-label">Lokalizacja</label>
+        <select class="form-input" id="location" onchange="sf('location',this.value)">
+          <option value="">Wybierz...</option>
+          <option>Gdańsk Wrzeszcz, ul. Wajdeloty</option>
+          <option>Gdańsk Południe — Jasień / Lawendowe Wzgórze</option>
+          <option>Straszyn, ul. Leśna 2</option>
+          <option>Online</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Rodzic / Opiekun</label>
+        <input class="form-input" id="parent" placeholder="np. Pani Kowalska" oninput="sf('parent',this.value)">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">💬 Cel wizyty (od rodzica)</div>
+    <div class="form-group" style="margin-bottom:10px;">
+      <label class="form-label">Co chce osiągnąć?</label>
+      <div class="chip-wrap" id="q-goal">
+        <button class="chip" onclick="toggleChip('q-goal','Lepsze oceny w szkole')">Lepsze oceny</button>
+        <button class="chip" onclick="toggleChip('q-goal','Swobodne mówienie')">Swobodne mówienie</button>
+        <button class="chip" onclick="toggleChip('q-goal','Egzamin Cambridge')">Egzamin Cambridge</button>
+        <button class="chip" onclick="toggleChip('q-goal','Nadrobienie zaległości')">Nadrobienie zaległości</button>
+        <button class="chip" onclick="toggleChip('q-goal','Ogólny rozwój')">Ogólny rozwój</button>
+        <button class="chip" onclick="toggleChip('q-goal','Przygotowanie do egzaminu 8-klasisty')">Egzamin 8-klasisty</button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Notatka (opcjonalnie)</label>
+      <textarea class="notes-ta" id="note-goal" placeholder="Dodatkowe informacje od rodzica..." oninput="sn('goal',this.value)"></textarea>
+    </div>
+  </div>
+
+  <div class="nav-btns"><div></div><button class="btn btn-primary" onclick="goTo(1)">Określ wiek →</button></div>
+</section>
+
+<!-- ═══ 1 — WIEK ═══ -->
+<section class="section" id="sec-1">
+  <div class="page-title">🎂 Wiek i klasa dziecka</div>
+  <div class="page-sub">Wybierz wiek — to determinuje ścieżkę kwalifikacji</div>
+
+  <div class="card">
+    <div class="card-title">👶 Teddy Eddie — 2 do 6 lat (bez testu)</div>
+    <div style="font-size:12.5px;color:var(--slate);margin-bottom:12px;line-height:1.6;">Dzieci 2–6 lat przypisywane są wyłącznie na podstawie wieku. <strong style="color:var(--pl-navy);">Nie przeprowadzamy testu pisemnego.</strong> Od 7 roku życia — test i rozmowa.</div>
+    <div class="age-grid">
+      <div class="age-card" id="age-2" onclick="selectAge(2,'teddy','Teddy Eddie START')">
+        <div class="ac-age">2–3</div>
+        <div class="ac-grade">lata</div>
+        <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--purple);">START</div>
+      </div>
+      <div class="age-card" id="age-4" onclick="selectAge(4,'teddy','Teddy Eddie STANDARD')">
+        <div class="ac-age">4–5</div>
+        <div class="ac-grade">lat</div>
+        <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--purple);">STANDARD</div>
+      </div>
+      <div class="age-card" id="age-6" onclick="selectAge(6,'teddy','Teddy Eddie ABC')">
+        <div class="ac-age">6</div>
+        <div class="ac-grade">lat (zerówka)</div>
+        <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--purple);">ABC</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎒 Szkoła podstawowa — od 7 lat (test + rozmowa)</div>
+    <div class="age-grid">
+      <div class="age-card" id="age-7" onclick="selectAge(7,'primary','')">
+        <div class="ac-age">7</div>
+        <div class="ac-grade">lat (1 klasa)</div>
+        <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--teal);">1 KLASA</div>
+      </div>
+      <div class="age-card" id="age-8" onclick="selectAge(8,'primary','')">
+        <div class="ac-age">8</div>
+        <div class="ac-grade">lat (2 klasa)</div>
+        <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--teal);">2 KLASA</div>
+      </div>
+      <div class="age-card" id="age-9" onclick="selectAge(9,'primary','')">
+        <div class="ac-age">9</div>
+        <div class="ac-grade">lat (3 klasa)</div>
+        <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--teal);">3 KLASA</div>
+      </div>
+      <div class="age-card" id="age-10" onclick="selectAge(10,'primary','')">
+        <div class="ac-age">10</div>
+        <div class="ac-grade">lat (4 klasa)</div>
+        <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--teal);">4 KLASA</div>
+      </div>
+      <div class="age-card" id="age-11" onclick="selectAge(11,'primary','')">
+        <div class="ac-age">11</div>
+        <div class="ac-grade">lat (5 klasa)</div>
+        <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--teal);">5 KLASA</div>
+      </div>
+      <div class="age-card" id="age-12" onclick="selectAge(12,'primary','')">
+        <div class="ac-age">12</div>
+        <div class="ac-grade">lat (6 klasa)</div>
+        <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--teal);">6 KLASA</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🎓 Młodzież — 13 lat i więcej (skala CEFR)</div>
+    <div class="age-grid">
+      <div class="age-card" id="age-13" onclick="selectAge(13,'teen','')">
+        <div class="ac-age">13</div>
+        <div class="ac-grade">lat (7 klasa)</div>
+        <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--orange);">7 KLASA</div>
+      </div>
+      <div class="age-card" id="age-14" onclick="selectAge(14,'teen','')">
+        <div class="ac-age">14</div>
+        <div class="ac-grade">lat (8 klasa)</div>
+        <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--orange);">8 KLASA</div>
+      </div>
+      <div class="age-card" id="age-15" onclick="selectAge(15,'teen','')">
+        <div class="ac-age">15–18</div>
+        <div class="ac-grade">lat (szkoła śr.)</div>
+        <div style="margin-top:6px;font-size:11px;font-weight:700;color:var(--orange);">ŚR. SZKOŁA</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goTo(0)">← Dane</button>
+    <button class="btn btn-primary" onclick="goToAfterAge()">Dalej →</button>
+  </div>
+</section>
+
+<!-- ═══ 2 — TEST ═══ -->
+<section class="section" id="sec-2">
+  <div class="page-title">📝 Wynik testu online</div>
+  <div class="page-sub">Wpisz wynik testu poziomującego (1–50 pkt) <span class="dot"></span> test rozwiązywany online przed rozmową</div>
+
+  <div class="card">
+    <div style="font-size:12.5px;color:var(--slate);margin-bottom:6px;line-height:1.6;background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:10px 12px;">
+      💡 <strong>Wynik testu</strong> jest dostępny w Office. Zapytaj przed rozmową lub poproś rodzica o pokazanie potwierdzenia z aplikacji testowej.
+    </div>
+  </div>
+
+  <div class="card" style="text-align:center;">
+    <div class="score-wrap">
+      <div style="font-size:13px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.8px;">Wynik testu</div>
+      <div class="score-display" id="scoreDisplay">–</div>
+      <div style="font-size:12px;color:var(--slate);">punktów / 50</div>
+      <input type="range" class="score-slider" id="scoreSlider" min="0" max="50" value="0" oninput="updateScore(this.value)">
+      <div class="score-labels"><span>0</span><span>10</span><span>20</span><span>30</span><span>40</span><span>50</span></div>
+      <div style="display:flex;gap:10px;margin-top:8px;">
+        <input type="number" id="scoreInput" min="1" max="50" placeholder="wpisz ręcznie" style="width:140px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:16px;font-family:'Nunito',sans-serif;font-weight:700;text-align:center;outline:none;" oninput="updateScoreInput(this.value)">
+      </div>
+      <div class="score-hint" id="scoreHint" style="margin-top:6px;"></div>
+    </div>
+
+    <!-- Score interpretation table -->
+    <div id="score-table-primary" style="display:none;margin-top:4px;">
+      <div style="font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;">Tabela poziomów Imagine</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;text-align:left;">
+        <div class="score-row" id="sr-1">1–9 pkt → Imagine Level 1</div>
+        <div class="score-row" id="sr-2">10–18 pkt → Imagine Level 2</div>
+        <div class="score-row" id="sr-3">19–27 pkt → Imagine Level 3</div>
+        <div class="score-row" id="sr-4">28–36 pkt → Imagine Level 4</div>
+        <div class="score-row" id="sr-5">37–45 pkt → Imagine Level 5</div>
+        <div class="score-row" id="sr-6">46–50 pkt → Imagine Level 6</div>
+      </div>
+    </div>
+
+    <div id="score-table-teen" style="display:none;margin-top:4px;">
+      <div style="font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;">Tabela CEFR — młodzież</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;text-align:left;">
+        <div class="score-row" id="tr-1">1–19 → A1+ Elementary</div>
+        <div class="score-row" id="tr-2">20–26 → A2 Pre-intermediate</div>
+        <div class="score-row" id="tr-3">27–34 → B1 Intermediate</div>
+        <div class="score-row" id="tr-4">35–42 → B1+ Strong intermediate</div>
+        <div class="score-row" id="tr-5">43–49 → B2 Upper intermediate</div>
+        <div class="score-row" id="tr-6">50 → B2+ Strong upper</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goTo(1)">← Wiek</button>
+    <button class="btn btn-teal" onclick="calcAndGoTo3()">Zobacz sugestię →</button>
+  </div>
+</section>
+
+<!-- ═══ 3 — SUGESTIA ═══ -->
+<section class="section" id="sec-3">
+  <div class="page-title">🎯 Sugestia kursu</div>
+  <div class="page-sub">Na podstawie wieku i wyniku testu <span class="dot"></span> <span id="sub-child-name"></span></div>
+
+  <div id="result-container"></div>
+
+  <div class="card">
+    <div class="card-title">📋 Uwagi lektora</div>
+    <textarea class="notes-ta" id="note-result" placeholder="Własna obserwacja po analizie wyniku testu. Np. dziecko jest zmotywowane, wynik poniżej oczekiwań dla wieku..." oninput="sn('result',this.value)"></textarea>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goBackFromResult()">← Wstecz</button>
+    <button class="btn btn-primary" onclick="goTo(4)">Kwalifikatory →</button>
+  </div>
+</section>
+
+<!-- ═══ 4 — KWALIFIKATORY ═══ -->
+<section class="section" id="sec-4">
+  <div class="page-title">🔗 Kwalifikatory szczegółowe</div>
+  <div class="page-sub">Linki do testów pisemnych i ustnych dla sugerowanego kursu</div>
+
+  <div id="qual-container"></div>
+
+  <!-- Zawsze widoczne linki do wszystkich -->
+  <div class="card" style="margin-top:8px;">
+    <div class="card-title" style="font-size:13px;">📁 Wszystkie kwalifikatory — dostęp szybki</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <a href="https://drive.google.com/file/d/1T1CVnIAOhaggs-IPF6jHowRTI3BXK8K7/view" target="_blank" class="qual-link secondary">Savvy Ed 1 📝</a>
+      <a href="https://drive.google.com/file/d/1uWDAhGUUOQKiuB9mkExOYYC44cnbqCmn/view" target="_blank" class="qual-link secondary">Savvy Ed 2 📝</a>
+      <a href="https://drive.google.com/file/d/1iDbiyy-wCVFRRRFwUYJCwa-xaAiezOPP/view" target="_blank" class="qual-link secondary">Savvy Ed 3 📝</a>
+      <a href="https://drive.google.com/file/d/1CelhueP4wdrQdGnbs3a-a-jsJyC1Lbei/view" target="_blank" class="qual-link secondary">Bearton Twins 📝</a>
+      <a href="https://drive.google.com/file/d/1YzQ_YRyncxhSg9Vv35C5M0-1fk0K2cvM/view" target="_blank" class="qual-link secondary">Edward's League 1 📝</a>
+      <a href="https://drive.google.com/file/d/1ZxT6hx1Yb3iTg1ExRTXu9eY9PQF8hQBZ/view" target="_blank" class="qual-link secondary">Edward's League 2 📝</a>
+      <a href="https://drive.google.com/file/d/1szzGMgwp84V818fmHNg-U4rPRkd4rzOm/view" target="_blank" class="qual-link secondary">Imagine 🗣</a>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goTo(3)">← Sugestia</button>
+    <button class="btn btn-primary" onclick="goTo(5)">Rozmowa →</button>
+  </div>
+</section>
+
+<!-- ═══ 5 — ROZMOWA ═══ -->
+<section class="section" id="sec-5">
+  <div class="page-title">💬 Rozmowa kwalifikacyjna</div>
+  <div class="page-sub">Pytania dopasowane do wieku dziecka</div>
+
+  <div class="convo-intro">
+    <strong>Zacznij od rodzica (po polsku):</strong><br>
+    „Dzień dobry, nazywam się … i chciałabym przeprowadzić z Pani/Pana dzieckiem krótką rozmowę w języku angielskim, aby jak najlepiej dopasować poziom zajęć. Poproszę Panią/Pana o poczekanie chwilkę na korytarzu — jak skończymy, zawołamy."<br><br>
+    <strong>Zacznij od dziecka (po polsku):</strong> Jak masz na imię? Ile masz lat? Do której klasy idziesz? Czy lubisz angielski?
+  </div>
+
+  <!-- PYTANIA POLSKIE — KAŻDE DZIECKO -->
+  <div class="convo-block">
+    <div class="convo-block-hdr">🇵🇱 Część polska — każde dziecko (obowiązkowa)</div>
+    <div class="convo-q"><div class="convo-q-num">1</div><div>Jak masz na imię? Ile masz lat? Do której klasy idziesz?</div></div>
+    <div class="convo-q"><div class="convo-q-num">2</div><div>Czy lubisz angielski? Jak Ci idzie w szkole z angielskim?</div></div>
+    <div class="convo-q"><div class="convo-q-num">3</div><div>Co lubisz robić po szkole? Jakie masz hobby lub ulubione zajęcia?</div></div>
+    <div class="convo-q"><div class="convo-q-num">4</div><div>Czy miałeś/miałaś już wcześniej kontakt z angielskim — np. w przedszkolu, na dodatkowych zajęciach, przez bajki lub gry?</div></div>
+    <div class="convo-q"><div class="convo-q-num">5</div><div>Jak długo uczysz się angielskiego? Ile mniej więcej miesięcy lub lat?</div></div>
+    <div class="convo-q"><div class="convo-q-num">6</div><div>Czy uczysz się angielskiego w szkole? Jak Ci idzie na lekcjach?</div></div>
+  </div>
+
+  <!-- PYTANIA EN: 7–9 LAT -->
+  <div class="convo-block">
+    <div class="convo-block-hdr">🇬🇧 Pytania angielskie — 7–9 lat (klasy 1–3) · poziom bardzo podstawowy</div>
+    <div class="convo-pl">„OK! Let's speak a little English now. I'll help you — don't worry! What's your name?"</div>
+    <div class="convo-q"><div class="convo-q-num">1</div><div>What's your name? How old are you?</div></div>
+    <div class="convo-q"><div class="convo-q-num">2</div><div>Do you have a pet? What is it? What's its name?</div></div>
+    <div class="convo-q"><div class="convo-q-num">3</div><div>What's your favourite colour / animal / food?</div></div>
+    <div class="convo-q"><div class="convo-q-num">4</div><div>Can you count to ten in English? (policz razem)</div></div>
+    <div class="convo-q"><div class="convo-q-num">5</div><div>Do you have any brothers or sisters?</div></div>
+    <div style="padding:8px 16px;font-size:12px;color:var(--slate);font-style:italic;">💡 Jeśli dziecko nie rozumie — przetłumacz i spróbuj jeszcze raz. Oceniaj gotowość i otwartość na angielski, nie tylko zasób słów.</div>
+  </div>
+
+  <!-- PYTANIA EN: 10–12 LAT -->
+  <div class="convo-block">
+    <div class="convo-block-hdr">🇬🇧 Pytania angielskie — 10–12 lat (klasy 4–6) · poziom A1/A2</div>
+    <div class="convo-pl">„Now let's switch to English! I'll start — my name is [imię] and I love travelling. Can you tell me something about yourself?"</div>
+    <div class="convo-q"><div class="convo-q-num">1</div><div>Can you tell me something about yourself?</div></div>
+    <div class="convo-q"><div class="convo-q-num">2</div><div>Do you have any brothers or sisters?</div></div>
+    <div class="convo-q"><div class="convo-q-num">3</div><div>What do you do after school? What are your hobbies?</div></div>
+    <div class="convo-q"><div class="convo-q-num">4</div><div>What's your favourite subject at school? Why?</div></div>
+    <div class="convo-q"><div class="convo-q-num">5</div><div>Do you like animals? Do you have a pet?</div></div>
+    <div class="convo-q"><div class="convo-q-num">6</div><div>Where did you spend your last holiday?</div></div>
+  </div>
+
+  <!-- PYTANIA EN: 13+ -->
+  <div class="convo-block">
+    <div class="convo-block-hdr">🇬🇧 Pytania angielskie — 13+ (klasy 7–8 i szkoła średnia) · poziom A1 → B2+</div>
+    <div class="convo-pl">„OK, so let's switch to English now. I'll start — my name is [imię], I am [wiek] years old. Can you tell me something about yourself?"</div>
+    <div style="padding:8px 16px 2px;font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.8px;border-top:1px solid var(--border);">Poziom A1/A2</div>
+    <div class="convo-q"><div class="convo-q-num">1</div><div>Can you tell me something about yourself?</div></div>
+    <div class="convo-q"><div class="convo-q-num">2</div><div>Do you have any brothers or sisters?</div></div>
+    <div class="convo-q"><div class="convo-q-num">3</div><div>What do you do after school? What are your hobbies?</div></div>
+    <div class="convo-q"><div class="convo-q-num">4</div><div>What do you do for a living? / What school do you go to?</div></div>
+    <div style="padding:8px 16px 2px;font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.8px;border-top:1px solid var(--border);">Poziom B1/B2</div>
+    <div class="convo-q"><div class="convo-q-num">5</div><div>Do you like to travel? Where have you been so far?</div></div>
+    <div class="convo-q"><div class="convo-q-num">6</div><div>Tell me about a movie or series you have recently watched.</div></div>
+    <div class="convo-q"><div class="convo-q-num">7</div><div>What do you consider to be important in life?</div></div>
+    <div style="padding:8px 16px 2px;font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.8px;border-top:1px solid var(--border);">Poziom C1/C2</div>
+    <div class="convo-q"><div class="convo-q-num">8</div><div>Some people prefer the countryside, others big cities. What advantages / disadvantages can you think of?</div></div>
+    <div class="convo-q"><div class="convo-q-num">9</div><div>What would you do with $1,000,000?</div></div>
+  </div>
+
+  <!-- PYTANIE ZAMYKAJĄCE DO RODZICA -->
+  <div class="convo-block">
+    <div class="convo-block-hdr">🇵🇱 Pytanie zamykające — do rodzica</div>
+    <div class="convo-pl">„Jeśli Pani/Pana dziecko byłoby w grupie, gdzie inne dzieci radzą sobie lepiej w niektórych aspektach — czy motywuje to dziecko, czy raczej demotywuje?"</div>
+    <div style="display:flex;gap:10px;padding:12px 16px;flex-wrap:wrap;">
+      <button class="chip" id="c-motivate" onclick="setGroupPref('motivates')">✅ Motywuje → wyższy poziom</button>
+      <button class="chip" id="c-demotivate" onclick="setGroupPref('demotivates')">⚠️ Demotywuje → niższy poziom</button>
+      <button class="chip" id="c-neutral" onclick="setGroupPref('neutral')">➡️ Neutralne</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📋 Notatki z rozmowy</div>
+    <textarea class="notes-ta" id="note-convo" placeholder="Np. dziecko mówiło pewnie, dobre słownictwo, problem z czasami przeszłymi, otwarte i chętne..." oninput="sn('convo',this.value)"></textarea>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goTo(4)">← Kwalifikatory</button>
+    <button class="btn btn-primary" onclick="goTo(6)">Decyzja końcowa →</button>
+  </div>
+</section>
+
+
+<!-- ═══ 6 — DECYZJA ═══ -->
+<section class="section" id="sec-6">
+  <div class="page-title">✅ Decyzja końcowa</div>
+  <div class="page-sub">Finalna kwalifikacja i raport dla Office</div>
+
+  <div id="final-summary"></div>
+
+  <div class="card">
+    <div class="card-title">🎯 Finalna decyzja metodyka</div>
+    <div class="form-group" style="margin-bottom:12px;">
+      <label class="form-label">Wybrany kurs i poziom</label>
+      <input class="form-input" id="final-course" placeholder="np. Edward's League 2, Savvy Ed 1A, Imagine Level 3..." style="font-size:15px;font-weight:700;" oninput="sn('final-course',this.value)">
+    </div>
+    <div class="form-group" style="margin-bottom:12px;">
+      <label class="form-label">Uzasadnienie</label>
+      <textarea class="notes-ta" id="final-reason" placeholder="Np. wynik testu 28 pkt + wiek 10 lat → Imagine 4. Rozmowa potwierdziła poziom. Dziecko pewne siebie..." oninput="sn('final-reason',this.value)"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Wskazówki dla lektora grupy</label>
+      <textarea class="notes-ta" id="final-tips" placeholder="Np. potrzebuje wsparcia przy gramatyce, bardzo aktywne, lubi gry ruchowe, nieśmiałe na początku..." oninput="sn('final-tips',this.value)"></textarea>
+    </div>
+  </div>
+
+  <!-- RAPORT DLA OFFICE — do wydruku -->
+  <div class="card" id="office-report" style="border:2px dashed var(--border);">
+    <div class="card-title">🗂️ Karta kwalifikacji — dla Office <span style="font-size:11px;color:var(--slate);font-weight:500;">(do wydruku lub wysyłki)</span></div>
+    <div id="office-report-content" style="font-size:13.5px;line-height:2;color:var(--pl-navy);">
+      <div style="font-style:italic;color:var(--slate);">Wypełnij decyzję powyżej — karta wygeneruje się automatycznie.</div>
+    </div>
+    <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn btn-primary" onclick="generateOfficeReport()" style="font-size:13px;padding:8px 16px;">🔄 Generuj kartę</button>
+      <button class="btn btn-ghost" onclick="printOfficeReport()" style="font-size:13px;padding:8px 16px;">🖨️ Drukuj kartę</button>
+    </div>
+  </div>
+
+  <div class="card" style="background:var(--pl-navy);border-color:var(--pl-navy);">
+    <div style="font-size:11px;font-weight:700;color:var(--pl-gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">📤 Następne kroki</div>
+    <div style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.8;">
+      ✅ Wpisz decyzję do bazy Notion<br>
+      ✅ Wydrukuj kartę kwalifikacji i przekaż do Office<br>
+      ✅ Poinformuj rodzica o wybranym kursie<br>
+      ✅ Jeśli dotyczy — przeprowadź kwalifikator pisemny/ustny z linku
+    </div>
+    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+      <a href="https://www.notion.so/33cd58a85f768110b020cbc3aa8166ed" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:var(--pl-gold);color:var(--pl-navy);text-decoration:none;padding:9px 16px;border-radius:8px;font-size:13px;font-weight:700;">📒 Otwórz Notion →</a>
+    </div>
+  </div>
+
+  <div class="nav-btns">
+    <button class="btn btn-ghost" onclick="goTo(5)">← Rozmowa</button>
+    <button class="btn btn-ghost" onclick="window.print()">🖨️ Drukuj całość</button>
+  </div>
+</section>
+
+
+</main>
+
+<script>
+// ═══════════ HELPERS ═══════════
+function goBackFromResult(){
+  if(state.ageType==='teddy') goTo(1);
+  else goTo(2);
+}
+
+// ═══════════ STATE ═══════════
+const STORE = 'pl_junior_v1';
+let state = {student:{}, notes:{}, age:null, ageType:null, score:null, groupPref:null, chips:{}};
+
+function loadState(){
+  try{ const s=localStorage.getItem(STORE); if(s){state=JSON.parse(s);return true;} }catch(e){}
+  return false;
+}
+function saveState(){
+  try{ localStorage.setItem(STORE,JSON.stringify(state));
+    const d=document.getElementById('saveDot'); d.classList.add('show');
+    clearTimeout(d._t); d._t=setTimeout(()=>d.classList.remove('show'),1200);
+  }catch(e){}
+}
+function sf(f,v){ state.student[f]=v; saveState(); }
+function sn(f,v){ state.notes[f]=v; saveState(); }
+function newSession(){
+  if(!confirm('Wyczyścić sesję?')) return;
+  localStorage.removeItem(STORE); location.reload();
+}
+
+// ═══════════ NAVIGATION ═══════════
+const SECS=['sec-0','sec-1','sec-2','sec-3','sec-4','sec-5','sec-6'];
+function goTo(idx){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(SECS[idx]).classList.add('active');
+  document.querySelectorAll('.step-btn').forEach((b,i)=>{
+    b.classList.remove('active','done');
+    const nums=['1','🎂','📝','🎯','🔗','💬','✅'];
+    b.querySelector('.step-num').textContent=i<idx?'✓':nums[i];
+    if(i<idx) b.classList.add('done');
+    else if(i===idx) b.classList.add('active');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(idx===3) buildResult();
+  if(idx===4) buildQualifiers();
+  if(idx===6) buildFinalSummary();
+}
+
+function goToAfterAge(){
+  if(!state.age){alert('Wybierz wiek dziecka!'); return;}
+  if(state.ageType==='teddy') goTo(3);
+  else goTo(2);
+}
+
+// ═══════════ AGE ═══════════
+function selectAge(age, type, teddyCourse){
+  state.age=age; state.ageType=type;
+  if(teddyCourse) state.teddyCourse=teddyCourse;
+  else state.teddyCourse=null;
+  saveState();
+  document.querySelectorAll('.age-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('age-'+age)?.classList.add('selected');
+  // Show appropriate score table
+  const pt = document.getElementById('score-table-primary');
+  const tt = document.getElementById('score-table-teen');
+  if(pt) pt.style.display = type==='primary'?'block':'none';
+  if(tt) tt.style.display = type==='teen'?'block':'none';
+}
+
+// ═══════════ SCORE ═══════════
+function updateScore(val){
+  val=parseInt(val)||0;
+  state.score=val; saveState();
+  document.getElementById('scoreDisplay').textContent=val||'–';
+  document.getElementById('scoreInput').value=val||'';
+  const slider=document.getElementById('scoreSlider');
+  slider.value=val;
+  const pct=(val/50*100)+'%';
+  slider.style.setProperty('--pct',pct);
+  updateScoreHint(val);
+  highlightScoreRow(val);
+}
+function updateScoreInput(val){
+  val=Math.min(50,Math.max(1,parseInt(val)||0));
+  document.getElementById('scoreSlider').value=val;
+  updateScore(val);
+}
+function updateScoreHint(val){
+  const hint=document.getElementById('scoreHint');
+  if(!val){hint.textContent='';return;}
+  const type=state.ageType;
+  let text='';
+  if(type==='primary'){
+    if(val<=9) text='Imagine Level 1';
+    else if(val<=18) text='Imagine Level 2';
+    else if(val<=27) text='Imagine Level 3';
+    else if(val<=36) text='Imagine Level 4';
+    else if(val<=45) text='Imagine Level 5';
+    else text='Imagine Level 6';
+  } else if(type==='teen'){
+    if(val<=19) text='A1+ Elementary';
+    else if(val<=26) text='A2 Pre-intermediate';
+    else if(val<=34) text='B1 Intermediate';
+    else if(val<=42) text='B1+ Strong intermediate';
+    else if(val<=49) text='B2 Upper intermediate';
+    else text='B2+ Strong upper intermediate';
+  }
+  hint.textContent=text?`→ ${text}`:'';
+  hint.style.color='var(--teal)';
+  hint.style.fontWeight='700';
+}
+function highlightScoreRow(val){
+  // Reset
+  for(let i=1;i<=6;i++){
+    const r=document.getElementById('sr-'+i);
+    const t=document.getElementById('tr-'+i);
+    if(r) r.style.cssText='font-size:12px;color:var(--slate);padding:4px 8px;border-radius:6px;';
+    if(t) t.style.cssText='font-size:12px;color:var(--slate);padding:4px 8px;border-radius:6px;';
+  }
+  if(!val) return;
+  let rowId=1;
+  if(state.ageType==='primary'){
+    if(val<=9) rowId=1; else if(val<=18) rowId=2; else if(val<=27) rowId=3;
+    else if(val<=36) rowId=4; else if(val<=45) rowId=5; else rowId=6;
+    const r=document.getElementById('sr-'+rowId);
+    if(r) r.style.cssText='font-size:12px;color:var(--teal);font-weight:700;padding:4px 8px;border-radius:6px;background:var(--teal-light);border:1px solid var(--teal-border);';
+  } else if(state.ageType==='teen'){
+    if(val<=19) rowId=1; else if(val<=26) rowId=2; else if(val<=34) rowId=3;
+    else if(val<=42) rowId=4; else if(val<=49) rowId=5; else rowId=6;
+    const t=document.getElementById('tr-'+rowId);
+    if(t) t.style.cssText='font-size:12px;color:var(--teal);font-weight:700;padding:4px 8px;border-radius:6px;background:var(--teal-light);border:1px solid var(--teal-border);';
+  }
+}
+function calcAndGoTo3(){
+  if(!state.score){ alert('Wpisz wynik testu!'); return; }
+  goTo(3);
+}
+
+// ═══════════ ALGORITHM ═══════════
+function calcCourse(){
+  const age=state.age, score=state.score, type=state.ageType;
+  if(type==='teddy') return {course:state.teddyCourse, type:'teddy', reason:'Przypisanie według wieku (bez testu)', qualifiers:[]};
+
+  if(type==='primary'){
+    const s=score;
+    if(age===7){
+      // ⚠️ UWAGA: progi dla 7-latków to interpolacja — Poradnik Zuzi zaczyna od 8 lat / 2 klasy.
+      // Wymaga potwierdzenia przez metodyka. Tymczasowo: <10 → Bearton 1, ≥10 → Savvy Ed 1
+      if(s>=10) return {course:"Savvy Ed 1 / 1A", type:'savvy', reason:`Wiek 7 lat (1 klasa) + wynik ${s} pkt (≥10) → Savvy Ed 1/1A ⚠️ Próg do potwierdzenia przez metodyka`, qualifiers:['savvy1'], warn:true};
+      else return {course:"Bearton Twins 1", type:'bearton', reason:`Wiek 7 lat (1 klasa) + wynik ${s} pkt (<10) → Bearton Twins 1 ⚠️ Próg do potwierdzenia przez metodyka`, qualifiers:['bearton'], warn:true};
+    }
+    if(age===8){
+      if(s>=15) return {course:"Savvy Ed 1 / 1A", type:'savvy', reason:`Wiek 8 lat + wynik ${s} pkt (≥15) → Savvy Ed 1/1A`, qualifiers:['savvy1']};
+      else return {course:"Bearton Twins 1", type:'bearton', reason:`Wiek 8 lat + wynik ${s} pkt (<15) → Bearton Twins 1`, qualifiers:['bearton']};
+    }
+    if(age===9){
+      if(s>=25) return {course:"Savvy Ed 2", type:'savvy', reason:`Wiek 9 lat + wynik ${s} pkt (≥25) → Savvy Ed 2`, qualifiers:['savvy2']};
+      else return {course:"Bearton Twins 1 lub 2", type:'bearton', reason:`Wiek 9 lat + wynik ${s} pkt (<25) → Bearton Twins 1 lub 2 (w zależności od rozmowy)`, qualifiers:['bearton']};
+    }
+    if(age===10){
+      if(s>=35) return {course:"Savvy Ed 2 / 3", type:'savvy', reason:`Wiek 10 lat + wynik ${s} pkt (≥35) → Savvy Ed 2/3 — bardzo dobry wynik`, qualifiers:['savvy2','savvy3']};
+      if(s>=28) return {course:"Imagine Level 4", type:'imagine', reason:`Wiek 10 lat + wynik ${s} pkt (28–36) → Imagine 4 — wynik zgodny z klasą`, qualifiers:['imagine']};
+      return {course:"Bearton Twins 2", type:'bearton', reason:`Wiek 10 lat + wynik ${s} pkt (<28) → Bearton Twins 2`, qualifiers:['bearton']};
+    }
+    if(age===11){
+      if(s>=40) return {course:"Savvy Ed 3 / Edward's League 1", type:'savvy', reason:`Wiek 11 lat + wynik ${s} pkt (≥40) → Savvy Ed 3 lub Edward's League 1 — bardzo dobry wynik`, qualifiers:['savvy3','edwards1']};
+      if(s>=37) return {course:"Imagine Level 5", type:'imagine', reason:`Wiek 11 lat + wynik ${s} pkt (37–45) → Imagine 5 — wynik zgodny z klasą`, qualifiers:['imagine']};
+      return {course:"Imagine Level 4", type:'imagine', reason:`Wiek 11 lat + wynik ${s} pkt (<37) → Imagine 4`, qualifiers:['imagine']};
+    }
+    if(age===12){
+      if(s>=46){
+        return {course:"Imagine Level 6 / Edward's League 1–2", type:'imagine', reason:`Wiek 12 lat + wynik ${s} pkt (46–50) → Imagine 6. Dobry wynik — rozważ też Edward's League 1 lub 2`, qualifiers:['imagine','edwards1','edwards2']};
+      }
+      if(s>=37) return {course:"Imagine Level 5", type:'imagine', reason:`Wiek 12 lat + wynik ${s} pkt (<46) → Imagine 5`, qualifiers:['imagine']};
+      return {course:"Imagine Level 4", type:'imagine', reason:`Wiek 12 lat + wynik ${s} pkt (słabszy) → Imagine 4`, qualifiers:['imagine']};
+    }
+  }
+
+  if(type==='teen'){
+    const s=score;
+    let cefr='', courseName='', courseType='ngl', quals=['ngl'];
+    if(s<=19){cefr='A1+'; courseName='Close Up A2 / Elementary'; courseType='close-up';}
+    else if(s<=26){cefr='A2'; courseName='Close Up A2 / Pre-intermediate'; courseType='close-up';}
+    else if(s<=34){cefr='B1'; courseName='Close Up B1 / Teen Time / Young Talk'; courseType='ngl';}
+    else if(s<=42){cefr='B1+'; courseName='Close Up B1+ / Teen Time'; courseType='ngl';}
+    else if(s<=49){cefr='B2'; courseName='Close Up B2 / FCE for Schools'; courseType='ngl';}
+    else{cefr='B2+'; courseName='Close Up B2+ / FCE for Schools'; courseType='ngl';}
+
+    let reason=`Wiek ${age} lat + wynik ${s} pkt → ${cefr} → ${courseName}`;
+    const extras=[];
+    if(age===13){
+      if(s>=35) extras.push('Wynik ≥35 → można proponować FCE for Schools (egzaminacyjny)');
+      if(s>=27) extras.push("Wynik ≥27 → można zrobić kwalifikację na Edward's League 2");
+    }
+    if(age===14){
+      extras.push('8 klasa → rozważ kurs przygotowujący do egzaminu 8-klasisty lub FCE for Schools');
+    }
+    if(age>=15){
+      extras.push('Szkoła średnia → Teen Time / Young Talk lub kursy egzaminacyjne. Klasy maturalne → przygotowanie do matury');
+    }
+    if(s>=27) quals=['edwards2','ngl'];
+
+    return {course:courseName, type:courseType, cefr, reason, extras, qualifiers:quals};
+  }
+
+  return {course:'—', type:'imagine', reason:'Brak danych', qualifiers:[]};
+}
+
+function buildResult(){
+  const r=calcCourse();
+  state.suggestedCourse=r.course;
+  saveState();
+  const fname=state.student.fname||'';
+  document.getElementById('sub-child-name').textContent=fname?`Uczeń: ${fname}`:'';
+
+  const colorMap={teddy:'teddy',savvy:'savvy',bearton:'bearton',imagine:'imagine',edwards:'edwards',ngl:'ngl','close-up':'close-up'};
+  const cls=colorMap[r.type]||'imagine';
+  // Safety: ensure container exists
+  const rc=document.getElementById('result-container');
+  if(!rc) return;
+  let html='';
+  if(r.warn) html+=`<div style="background:#FFF7ED;border:1px solid #FED7AA;border-radius:9px;padding:11px 14px;margin-bottom:12px;font-size:13px;color:#92400E;font-weight:600;">⚠️ Progi dla 7-latków to interpolacja — Poradnik Poziomowania zaczyna od 8 lat. Zweryfikuj decyzję z metodykiem.</div>`;
+  html+=`<div class="result-hero ${cls}">
+    <div class="result-label">Sugerowany kurs</div>
+    <div class="result-course">${r.course}</div>
+    ${r.cefr?`<div class="result-sub">Poziom CEFR: ${r.cefr}</div>`:''}
+    <div class="result-score-badge">${state.ageType==='teddy'?'📅 Wiek':'📝 Wynik testu'}: ${state.ageType==='teddy'?state.age+' lat':state.score+' / 50 pkt'}</div>
+  </div>
+  <div class="card">
+    <div class="card-title" style="font-size:14px;">📋 Uzasadnienie algorytmu</div>
+    <div style="font-size:13.5px;color:var(--pl-navy);line-height:1.65;font-weight:500;">${r.reason}</div>
+    ${r.extras&&r.extras.length?`<div style="margin-top:10px;">${r.extras.map(e=>`<div style="margin-top:6px;background:#FFF7ED;border:1px solid #FED7AA;border-radius:7px;padding:7px 11px;font-size:12.5px;color:#92400E;font-weight:600;">⚠️ ${e}</div>`).join('')}</div>`:''}
+  </div>`;
+
+  rc.innerHTML=html;
+}
+
+function buildQualifiers(){
+  const r=calcCourse();
+  const quals=r.qualifiers||[];
+  let html='';
+
+  const qualData={
+    savvy1:{title:"Savvy Ed 1",note:"Uczeń musi uzyskać co najmniej 80% aby dostać się na ten poziom. Nie robimy całego testu — wyświetl dziecku na ekranie i poproś o wybrane ćwiczenia.",links:[{label:'📝 Część pisemna',url:'https://drive.google.com/file/d/1T1CVnIAOhaggs-IPF6jHowRTI3BXK8K7/view',cls:'primary'},{label:'🗣 Część ustna',url:'https://drive.google.com/file/d/1dVnFkIJgUCV2XMzS4Aiq9nsb41xlxhJv/view',cls:'secondary'}]},
+    savvy2:{title:"Savvy Ed 2",note:"Uczeń musi uzyskać co najmniej 80%. Wyświetl na ekranie, proszę o wybrane przykłady.",links:[{label:'📝 Część pisemna',url:'https://drive.google.com/file/d/1uWDAhGUUOQKiuB9mkExOYYC44cnbqCmn/view',cls:'primary'},{label:'🗣 Część ustna',url:'https://drive.google.com/file/d/1fR4sd6EVkYrpQCrtqkr88UZIQo5jC-sI/view',cls:'secondary'}]},
+    savvy3:{title:"Savvy Ed 3",note:"Uczeń musi uzyskać co najmniej 80%. Wyświetl na ekranie.",links:[{label:'📝 Część pisemna',url:'https://drive.google.com/file/d/1iDbiyy-wCVFRRRFwUYJCwa-xaAiezOPP/view',cls:'primary'},{label:'🗣 Część ustna',url:'https://drive.google.com/file/d/1l4tJW7DVVDpWbX9sEskAzq2CnvonL_gg/view',cls:'secondary'}]},
+    bearton:{title:"The Bearton Twins",note:"Kwalifikacja w pełni opisana w linku z interpretacją. Sprawdź interpretację przed rozmową.",links:[{label:'📝 Test pisemny',url:'https://drive.google.com/file/d/1CelhueP4wdrQdGnbs3a-a-jsJyC1Lbei/view',cls:'primary'},{label:'🗣 Test ustny',url:'https://drive.google.com/file/d/1FBV3P7cxFlG8JoahyocNuOWfudky8D28/view',cls:'secondary'},{label:'📊 Interpretacja',url:'https://drive.google.com/file/d/1Z0WOhymKwv5eFRokWsI0A84T5QPfJpJo/view',cls:'interp'}]},
+    imagine:{title:"Imagine",note:"Kwalifikację ustną na dany poziom przeprowadzamy według instrukcji pod linkiem.",links:[{label:'🗣 Instrukcja kwalifikacji ustnej',url:'https://drive.google.com/file/d/1szzGMgwp84V818fmHNg-U4rPRkd4rzOm/view',cls:'primary'}]},
+    edwards1:{title:"Edward's League 1",note:"Uczeń musi uzyskać co najmniej 80%. Wyświetl na ekranie, poproś o wybrane przykłady.",links:[{label:'📝 Test pisemny',url:'https://drive.google.com/file/d/1YzQ_YRyncxhSg9Vv35C5M0-1fk0K2cvM/view',cls:'primary'},{label:'🗣 Część ustna',url:'https://drive.google.com/file/d/1jS0Rl14dIzMEQL42O6EAz7tdS_VZht80/view',cls:'secondary'}]},
+    edwards2:{title:"Edward's League 2",note:"Uczeń musi uzyskać co najmniej 80%. Wyświetl na ekranie.",links:[{label:'📝 Test pisemny',url:'https://drive.google.com/file/d/1ZxT6hx1Yb3iTg1ExRTXu9eY9PQF8hQBZ/view',cls:'primary'},{label:'🗣 Część ustna',url:'https://drive.google.com/file/d/1-jUwlgW_7wjEI3QUunsLl3ngxd_7wZ45/view',cls:'secondary'}]},
+    ngl:{title:"NGL / Close Up / Teen Time",note:"Kursy dla młodzieży. Poziom określony na podstawie testu i rozmowy. Brak osobnego kwalifikatora — wynik testu i rozmowa są wystarczające.",links:[]}
+  };
+
+  quals.forEach(q=>{
+    const d=qualData[q];
+    if(!d) return;
+    html+=`<div class="qual-section">
+      <div class="qual-header">📋 ${d.title}</div>
+      <div class="qual-body">
+        <div class="qual-note">${d.note}</div>
+        <div class="qual-links">${d.links.map(l=>`<a href="${l.url}" target="_blank" class="qual-link ${l.cls}">${l.label}</a>`).join('')}</div>
+      </div>
+    </div>`;
+  });
+
+  if(!html) html='<div class="card" style="color:var(--slate);font-size:13px;">Dla wybranego profilu nie ma osobnego kwalifikatora pisemnego — wynik testu i rozmowa kwalifikacyjna są wystarczające.</div>';
+  document.getElementById('qual-container').innerHTML=html;
+}
+
+function buildFinalSummary(){
+  const fname=state.student.fname||'';
+  const lname=state.student.lname||'';
+  const name=[fname,lname].filter(Boolean).join(' ')||'Uczeń';
+  const course=state.suggestedCourse||'—';
+  const score=state.score;
+  const age=state.age;
+
+  document.getElementById('final-summary').innerHTML=`
+  <div class="card" style="background:var(--cream);">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;text-align:center;">
+      <div><div style="font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">Uczeń</div><div style="font-size:16px;font-weight:700;color:var(--pl-navy);">${name}</div></div>
+      <div><div style="font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">Wiek / Wynik</div><div style="font-size:16px;font-weight:700;color:var(--pl-navy);">${age} lat${score?' · '+score+' pkt':''}</div></div>
+      <div><div style="font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;">Sugestia</div><div style="font-size:14px;font-weight:700;color:var(--teal);">${course}</div></div>
+    </div>
+  </div>`;
+
+  // Pre-fill final course if empty
+  const fc=document.getElementById('final-course');
+  if(fc&&!fc.value&&course!=='—') fc.value=course;
+}
+
+// ═══════════ CHIPS ═══════════
+function toggleChip(groupId, value){
+  const container=document.getElementById(groupId);
+  if(!container) return;
+  if(!state.chips[groupId]) state.chips[groupId]=[];
+  const idx=state.chips[groupId].indexOf(value);
+  if(idx>=0) state.chips[groupId].splice(idx,1);
+  else state.chips[groupId].push(value);
+  saveState();
+  container.querySelectorAll('.chip').forEach(b=>{
+    const bv=b.getAttribute('onclick').match(/'([^']+)'\)$/)?.[1];
+    b.classList.toggle('selected', state.chips[groupId].includes(bv));
+  });
+}
+
+function setGroupPref(val){
+  state.groupPref=val; saveState();
+  ['c-motivate','c-demotivate','c-neutral'].forEach(id=>document.getElementById(id)?.classList.remove('selected'));
+  if(val==='motivates') document.getElementById('c-motivate')?.classList.add('selected');
+  else if(val==='demotivates') document.getElementById('c-demotivate')?.classList.add('selected');
+  else document.getElementById('c-neutral')?.classList.add('selected');
+}
+
+// ═══════════ OFFICE REPORT ═══════════
+function generateOfficeReport(){
+  const fname = state.student.fname||'';
+  const lname = state.student.lname||'';
+  const name = [fname,lname].filter(Boolean).join(' ')||'—';
+  const lektor = state.student.lektor||'—';
+  const date = state.student.evalDate||'—';
+  const loc = state.student.location||'—';
+  const parent = state.student.parent||'—';
+  const age = state.age||'—';
+  const score = state.ageType==='teddy' ? 'bez testu (wiek)' : (state.score ? state.score+' / 50 pkt' : '—');
+  const suggested = state.suggestedCourse||'—';
+  const finalCourse = document.getElementById('final-course')?.value || suggested;
+  const reason = document.getElementById('final-reason')?.value || '—';
+  const tips = document.getElementById('final-tips')?.value || '—';
+  const convoNotes = document.getElementById('note-convo')?.value || '—';
+
+  const html = `
+    <div style="font-family:'Nunito',sans-serif;">
+      <div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #0C1F3F;padding-bottom:10px;margin-bottom:14px;">
+        <div style="font-size:18px;font-weight:800;color:#0C1F3F;">PRESTIGE LINGUA</div>
+        <div style="font-size:12px;color:#64748B;text-align:right;">Karta kwalifikacji — Prestige Junior<br>${date}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+        <div style="background:#F8FAFC;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.8px;">Uczeń</div><div style="font-size:15px;font-weight:700;color:#0C1F3F;margin-top:2px;">${name}</div></div>
+        <div style="background:#F8FAFC;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.8px;">Rodzic / Opiekun</div><div style="font-size:13px;font-weight:600;color:#0C1F3F;margin-top:2px;">${parent}</div></div>
+        <div style="background:#F8FAFC;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.8px;">Wiek / Wynik testu</div><div style="font-size:13px;font-weight:600;color:#0C1F3F;margin-top:2px;">${age} lat · ${score}</div></div>
+        <div style="background:#F8FAFC;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.8px;">Lektor / Metodyk</div><div style="font-size:13px;font-weight:600;color:#0C1F3F;margin-top:2px;">${lektor}</div></div>
+        <div style="background:#F8FAFC;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.8px;">Lokalizacja</div><div style="font-size:12px;font-weight:600;color:#0C1F3F;margin-top:2px;">${loc}</div></div>
+        <div style="background:#0C1F3F;border-radius:8px;padding:10px 12px;"><div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.8px;">Kurs — decyzja</div><div style="font-size:15px;font-weight:800;color:#C9A84C;margin-top:2px;">${finalCourse}</div></div>
+      </div>
+      ${reason!=='—'?`<div style="background:#FFFBEB;border:1px solid #FDE68A;border-radius:8px;padding:10px 12px;margin-bottom:8px;font-size:12.5px;color:#92400E;"><strong>Uzasadnienie:</strong> ${reason}</div>`:''}
+      ${tips!=='—'?`<div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:10px 12px;margin-bottom:8px;font-size:12.5px;color:#1E40AF;"><strong>Wskazówki dla lektora:</strong> ${tips}</div>`:''}
+      ${convoNotes!=='—'?`<div style="background:#F0FDF4;border:1px solid #BBF7D0;border-radius:8px;padding:10px 12px;font-size:12.5px;color:#166534;"><strong>Notatki z rozmowy:</strong> ${convoNotes}</div>`:''}
+      <div style="margin-top:16px;padding-top:10px;border-top:1px solid #E2E8F0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;font-size:12px;color:#64748B;text-align:center;">
+        <div>Podpis metodyka:<br><div style="margin-top:20px;border-bottom:1px solid #CBD5E1;"></div></div>
+        <div>Data:<br><div style="margin-top:20px;border-bottom:1px solid #CBD5E1;"></div></div>
+        <div>Potwierdzenie Office:<br><div style="margin-top:20px;border-bottom:1px solid #CBD5E1;"></div></div>
+      </div>
+    </div>`;
+
+  document.getElementById('office-report-content').innerHTML = html;
+}
+
+function printOfficeReport(){
+  generateOfficeReport();
+  setTimeout(()=>window.print(), 200);
+}
+
+// ═══════════ INIT ═══════════
+document.addEventListener('DOMContentLoaded',()=>{
+  const had=loadState();
+  if(had){
+    const s=state.student||{};
+    ['fname','lname','evalDate','lektor','location','parent'].forEach(f=>{
+      const el=document.getElementById(f); if(el&&s[f]) el.value=s[f];
+    });
+    const n=state.notes||{};
+    // Load textareas with note- prefix
+    ['goal','result','convo'].forEach(f=>{
+      const el=document.getElementById('note-'+f);
+      if(el&&n[f]) el.value=n[f];
+    });
+    // Load inputs/textareas with direct id
+    ['final-course','final-reason','final-tips'].forEach(f=>{
+      const el=document.getElementById(f);
+      if(el&&n[f]) el.value=n[f];
+    });
+    if(state.age){
+      selectAge(state.age, state.ageType, state.teddyCourse);
+    }
+    if(state.score){
+      document.getElementById('scoreSlider').value=state.score;
+      updateScore(state.score);
+    }
+    if(state.groupPref) setGroupPref(state.groupPref);
+    const banner=document.getElementById('session-banner');
+    const nm=[s.fname,s.lname].filter(Boolean).join(' ');
+    document.getElementById('session-text').textContent=nm?`Wczytano sesję: ${nm}.`:'Wczytano poprzednią sesję.';
+    banner.classList.remove('hidden');
+  }
+  document.getElementById('evalDate').valueAsDate=new Date();
+  if(!state.student.evalDate){
+    state.student.evalDate=document.getElementById('evalDate').value;
+    saveState();
+  }
+});
+</script>
+</body>
+</html>
