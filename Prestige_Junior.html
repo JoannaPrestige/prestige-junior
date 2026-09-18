@@ -496,7 +496,9 @@ body{background:var(--e-bg);color:var(--e-ink);
 .btn-primary:hover{filter:brightness(1.08)}
 .btn-ghost{background:var(--e-surface);color:var(--e-ink-2);border-color:var(--e-line)}
 .btn-ghost:hover{background:var(--e-surface-2);color:var(--e-ink)}
-.btn-gold{background:var(--e-gold);color:#fff;border-color:var(--e-gold)}
+.btn-gold{background:var(--e-gold);color:var(--e-ink,#1C1C1E);border-color:var(--e-gold)}
+/* Ciemny tekst na złocie, tak jak w oryginalnym arkuszu. Biały dawał 3,43:1,
+   czyli poniżej progu czytelności. Naprawione 17.09.2026. */
 .btn-teal{background:var(--e-teal);color:#fff;border-color:var(--e-teal)}
 
 /* ── ELEMENTY WYBORU: większe cele, czytelny stan ──────── */
@@ -554,7 +556,10 @@ body{background:var(--e-bg);color:var(--e-ink);
 .modal-box{background:var(--e-surface);border-radius:18px;box-shadow:var(--sh-lg);border:1px solid var(--e-line)}
 .result-hero,.summary-hero,.pr-level-banner{
   background:var(--e-tint);border:1px solid var(--e-tint-2);border-radius:16px;color:var(--e-ink)}
-.result-course,.pr-level-name{font-family:'Playfair Display',Georgia,serif;color:var(--e-brand)}
+.result-course,.pr-level-name{font-family:'Playfair Display',Georgia,serif}
+/* .result-course NIE dostaje koloru marki: leży na kafelku w kolorze marki,
+   więc nadpisanie bieli robiło z nazwy kursu tekst niewidoczny. Naprawione 17.09.2026. */
+.pr-level-name{color:var(--e-brand)}
 
 /* ── MOBILE ────────────────────────────────────────────── */
 @media (max-width:760px){
@@ -713,7 +718,7 @@ body{background:var(--e-bg);color:var(--e-ink);
         <label class="form-label">Lokalizacja</label>
         <select class="form-input" id="location" onchange="sf('location',this.value)">
           <option value="">Wybierz...</option>
-          <option>Gdańsk Wrzeszcz, ul. Wajdeloty</option>
+          <option>Gdańsk Wrzeszcz, ul. Grażyny 10</option>
           <option>Gdańsk Południe — Jasień / Lawendowe Wzgórze</option>
           <option>Straszyn, ul. Leśna 2</option>
           <option>Online</option>
@@ -722,6 +727,14 @@ body{background:var(--e-bg);color:var(--e-ink);
       <div class="form-group">
         <label class="form-label">Rodzic / Opiekun</label>
         <input class="form-input" id="parent" placeholder="np. Pani Kowalska" oninput="sf('parent',this.value)">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Telefon</label>
+        <input class="form-input" id="telefon" type="tel" placeholder="np. 600 100 200" oninput="sf('telefon',this.value)">
+      </div>
+      <div class="form-group">
+        <label class="form-label">E-mail</label>
+        <input class="form-input" id="email" type="email" placeholder="np. rodzic@poczta.pl" oninput="sf('email',this.value)">
       </div>
     </div>
   </div>
@@ -1040,6 +1053,19 @@ body{background:var(--e-bg);color:var(--e-ink);
       <input class="form-input" id="final-course" placeholder="np. Edward's League 2, Savvy Ed 1A, Imagine Level 3..." style="font-size:15px;font-weight:700;" oninput="sn('final-course',this.value)">
     </div>
     <div class="form-group" style="margin-bottom:12px;">
+      <label class="form-label">Sugerowana grupa</label>
+      <input class="form-input" id="final-grupa" placeholder="np. Savvy Ed 2 — wtorek i czwartek 17:00, Wrzeszcz" oninput="sn('final-grupa',this.value)">
+    </div>
+    <div class="form-group" style="margin-bottom:12px;">
+      <label class="form-label">Status</label>
+      <select class="form-input" id="final-status" onchange="sn('final-status',this.value)">
+          <option value="">— nie ustawiono —</option>
+          <option>Zapisany</option>
+          <option>Do oddzwonienia</option>
+          <option>Zrezygnował</option>
+      </select>
+    </div>
+    <div class="form-group" style="margin-bottom:12px;">
       <label class="form-label">Uzasadnienie</label>
       <textarea class="notes-ta" id="final-reason" placeholder="Np. wynik testu 28 pkt + wiek 10 lat → Imagine 4. Rozmowa potwierdziła poziom. Dziecko pewne siebie..." oninput="sn('final-reason',this.value)"></textarea>
     </div>
@@ -1064,16 +1090,29 @@ body{background:var(--e-bg);color:var(--e-ink);
   <div class="card" style="background:var(--pl-navy);border-color:var(--pl-navy);">
     <div style="font-size:11px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">📤 Następne kroki</div>
     <div style="font-size:13px;color:rgba(255,255,255,.8);line-height:1.8;">
-      ✅ Wpisz decyzję do bazy Notion<br>
       ✅ Wydrukuj kartę kwalifikacji i przekaż do Office<br>
       ✅ Poinformuj rodzica o wybranym kursie<br>
       ✅ Jeśli dotyczy — przeprowadź kwalifikator pisemny/ustny z linku
     </div>
-    <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
-      <a href="https://www.notion.so/33cd58a85f768110b020cbc3aa8166ed" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:var(--pl-gold);color:var(--ink);text-decoration:none;padding:9px 16px;border-radius:8px;font-size:13px;font-weight:700;">📒 Otwórz Notion →</a>
-    </div>
   </div>
 
+
+  <div style="border:1px solid var(--border,#dde3ee);border-radius:12px;padding:16px 18px;margin-top:14px;background:var(--white,#fff);">
+    <div style="font-size:11px;font-weight:700;color:var(--muted,#5A6172);text-transform:uppercase;letter-spacing:.9px;margin-bottom:6px;">📊 Rejestr ewaluacji — Excel</div>
+    <div style="font-size:13px;color:var(--muted,#5A6172);line-height:1.55;margin-bottom:12px;">
+      Dopisz zakończoną ewaluację do rejestru, a potem pobierz cały rejestr jako zwykły arkusz Excela (.xlsx).
+      Rejestr trzyma się w tej przeglądarce, na tym komputerze — pobrany plik możesz zapisać gdziekolwiek.
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <button class="btn btn-primary" onclick="PLRejestr.dopisz()">💾 Dopisz do rejestru</button>
+      <button class="btn btn-ghost" onclick="PLRejestr.pobierz()" data-rejestr-licznik>📊 Pobierz Excel</button>
+      <button class="btn btn-ghost" onclick="PLRejestr.wyczysc()" style="margin-left:auto;opacity:.7;font-size:12px;">🗑 Wyczyść rejestr</button>
+    </div>
+    <div data-arkusz-wiersz style="display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border,#dde3ee);align-items:center;gap:10px;flex-wrap:wrap;">
+      <span data-arkusz-status style="font-size:12.5px;color:var(--muted,#5A6172);"></span>
+      <button class="btn btn-ghost" onclick="PLRejestr.wyslijZalegle()" style="margin-left:auto;font-size:12px;">☁️ Wyślij zaległe</button>
+    </div>
+  </div>
   <div class="nav-btns">
     <button class="btn btn-ghost" onclick="goTo(5)">← Rozmowa</button>
     <button class="btn btn-ghost" onclick="window.print()">🖨️ Drukuj całość</button>
@@ -1472,10 +1511,14 @@ document.addEventListener('DOMContentLoaded',()=>{
   const had=loadState();
   if(had){
     const s=state.student||{};
-    ['fname','lname','evalDate','lektor','location','parent'].forEach(f=>{
+    ['fname','lname','evalDate','lektor','location','parent','telefon','email'].forEach(f=>{
       const el=document.getElementById(f); if(el&&s[f]) el.value=s[f];
     });
     const n=state.notes||{};
+    // decyzja metodyka — te pola też mają wracać po odświeżeniu strony
+    ['final-course','final-grupa','final-status','final-reason','final-tips'].forEach(f=>{
+      const el=document.getElementById(f); if(el&&n[f]) el.value=n[f];
+    });
     // Load textareas with note- prefix
     ['goal','result','convo'].forEach(f=>{
       const el=document.getElementById('note-'+f);
@@ -1791,6 +1834,292 @@ document.addEventListener('DOMContentLoaded',()=>{
   else window.addEventListener('load', function(){ setTimeout(start, 0); });
 })();
 
+</script>
+
+<script>
+/* ══ REJESTR EWALUACJI → ARKUSZ EXCELA (.xlsx) ══════════════════════
+   Zastępuje ręczne przepisywanie wyników do zewnętrznej bazy.
+   Zakończona ewaluacja
+   dopisuje się do rejestru w przeglądarce, a rejestr pobiera się
+   jako zwykły plik Excela. Bez internetu, bez kont, bez dodatków.
+   Dodane 16.09.2026. */
+(function(){
+'use strict';
+
+/* ── 1. ZIP metodą STORE + CRC32. Plik .xlsx to spakowany zestaw XML-i ── */
+var TAB=(function(){var t=new Uint32Array(256),c,n,k;for(n=0;n<256;n++){c=n;for(k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);t[n]=c>>>0;}return t;})();
+function crc32(b){var c=0xFFFFFFFF,i;for(i=0;i<b.length;i++)c=TAB[(c^b[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0;}
+function bajty(s){return new TextEncoder().encode(s);}
+
+function zip(pliki){
+  var lokalne=[],centralne=[],offset=0;
+  pliki.forEach(function(p){
+    var nazwa=bajty(p.nazwa),dane=bajty(p.tresc),crc=crc32(dane);
+    var lh=new DataView(new ArrayBuffer(30));
+    lh.setUint32(0,0x04034b50,true);lh.setUint16(4,20,true);lh.setUint16(6,0x0800,true);
+    lh.setUint16(8,0,true);lh.setUint16(10,0,true);lh.setUint16(12,0,true);
+    lh.setUint32(14,crc,true);lh.setUint32(18,dane.length,true);lh.setUint32(22,dane.length,true);
+    lh.setUint16(26,nazwa.length,true);lh.setUint16(28,0,true);
+    lokalne.push(new Uint8Array(lh.buffer),nazwa,dane);
+    var ch=new DataView(new ArrayBuffer(46));
+    ch.setUint32(0,0x02014b50,true);ch.setUint16(4,20,true);ch.setUint16(6,20,true);
+    ch.setUint16(8,0x0800,true);ch.setUint16(10,0,true);ch.setUint16(12,0,true);ch.setUint16(14,0,true);
+    ch.setUint32(16,crc,true);ch.setUint32(20,dane.length,true);ch.setUint32(24,dane.length,true);
+    ch.setUint16(28,nazwa.length,true);ch.setUint16(30,0,true);ch.setUint16(32,0,true);
+    ch.setUint16(34,0,true);ch.setUint16(36,0,true);ch.setUint32(38,0,true);ch.setUint32(42,offset,true);
+    centralne.push(new Uint8Array(ch.buffer),nazwa);
+    offset+=30+nazwa.length+dane.length;
+  });
+  var rozmiarCD=0;centralne.forEach(function(c){rozmiarCD+=c.length;});
+  var eo=new DataView(new ArrayBuffer(22));
+  eo.setUint32(0,0x06054b50,true);eo.setUint16(4,0,true);eo.setUint16(6,0,true);
+  eo.setUint16(8,pliki.length,true);eo.setUint16(10,pliki.length,true);
+  eo.setUint32(12,rozmiarCD,true);eo.setUint32(16,offset,true);eo.setUint16(20,0,true);
+  var czesci=lokalne.concat(centralne,[new Uint8Array(eo.buffer)]);
+  var razem=0;czesci.forEach(function(c){razem+=c.length;});
+  var out=new Uint8Array(razem),poz=0;
+  czesci.forEach(function(c){out.set(c,poz);poz+=c.length;});
+  return out;
+}
+
+/* ── 2. Budowa arkusza ── */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function kol(n){var s='';n++;while(n>0){var r=(n-1)%26;s=String.fromCharCode(65+r)+s;n=(n-r-1)/26;}return s;}
+function serial(txt){
+  var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(String(txt||'').trim());
+  if(!m) return null;
+  return Math.round((Date.UTC(+m[1],+m[2]-1,+m[3])-Date.UTC(1899,11,30))/86400000);
+}
+
+var STYLE='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+'<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'+
+'<numFmts count="1"><numFmt numFmtId="164" formatCode="dd.mm.yyyy"/></numFmts>'+
+'<fonts count="2"><font><sz val="11"/><name val="Calibri"/></font>'+
+'<font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/></font></fonts>'+
+'<fills count="3"><fill><patternFill patternType="none"/></fill>'+
+'<fill><patternFill patternType="gray125"/></fill>'+
+'<fill><patternFill patternType="solid"><fgColor rgb="FF5B8FCE"/><bgColor indexed="64"/></patternFill></fill></fills>'+
+'<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders>'+
+'<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>'+
+'<cellXfs count="3">'+
+'<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>'+
+'<xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1"/>'+
+'<xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>'+
+'</cellXfs>'+'<cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles>'+'</styleSheet>';
+
+function arkusz(naglowki,wiersze){
+  var cols='<cols>'+naglowki.map(function(h,i){
+    return '<col min="'+(i+1)+'" max="'+(i+1)+'" width="'+h.szer+'" customWidth="1"/>';}).join('')+'</cols>';
+  var body='<row r="1">'+naglowki.map(function(h,i){
+    return '<c r="'+kol(i)+'1" s="1" t="inlineStr"><is><t xml:space="preserve">'+esc(h.tytul)+'</t></is></c>';}).join('')+'</row>';
+  wiersze.forEach(function(w,ri){
+    var nr=ri+2;
+    body+='<row r="'+nr+'">'+w.map(function(v,ci){
+      if(v===null||v===undefined||v==='') return '';
+      var ref=kol(ci)+nr;
+      var s=(naglowki[ci]&&naglowki[ci].data)?serial(v):null;
+      if(s!==null) return '<c r="'+ref+'" s="2"><v>'+s+'</v></c>';
+      if(typeof v==='number'&&isFinite(v)) return '<c r="'+ref+'"><v>'+v+'</v></c>';
+      return '<c r="'+ref+'" t="inlineStr"><is><t xml:space="preserve">'+esc(v)+'</t></is></c>';
+    }).join('')+'</row>';
+  });
+  return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+    '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'+
+    '<sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>'+
+    '<sheetFormatPr defaultRowHeight="15"/>'+cols+
+    '<sheetData>'+body+'</sheetData>'+
+    '<autoFilter ref="A1:'+kol(naglowki.length-1)+(wiersze.length+1)+'"/></worksheet>';
+}
+
+var NS='http://schemas.openxmlformats.org/officeDocument/2006/relationships';
+function xlsx(naglowki,wiersze){
+  return zip([
+    {nazwa:'[Content_Types].xml',tresc:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+      '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'+
+      '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'+
+      '<Default Extension="xml" ContentType="application/xml"/>'+
+      '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>'+
+      '<Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>'+
+      '<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>'},
+    {nazwa:'_rels/.rels',tresc:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+      '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+
+      '<Relationship Id="rId1" Type="'+NS+'/officeDocument" Target="xl/workbook.xml"/></Relationships>'},
+    {nazwa:'xl/workbook.xml',tresc:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+      '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="'+NS+'">'+
+      '<sheets><sheet name="Rejestr" sheetId="1" r:id="rId1"/></sheets></workbook>'},
+    {nazwa:'xl/_rels/workbook.xml.rels',tresc:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+      '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+
+      '<Relationship Id="rId1" Type="'+NS+'/worksheet" Target="worksheets/sheet1.xml"/>'+
+      '<Relationship Id="rId2" Type="'+NS+'/styles" Target="styles.xml"/></Relationships>'},
+    {nazwa:'xl/styles.xml',tresc:STYLE},
+    {nazwa:'xl/worksheets/sheet1.xml',tresc:arkusz(naglowki,wiersze)}
+  ]);
+}
+
+/* ── 3. Rejestr ── */
+var KLUCZ='pl_rejestr_junior_v2';
+var ZRODLO='junior';
+
+/* ══ WYSYŁKA DO ARKUSZA GOOGLE ══════════════════════════════════════
+   Uzupełnij oba pola adresem aplikacji internetowej Apps Script
+   i wspólnym kluczem. Puste = wysyłka wyłączona, rejestr działa
+   jak dotąd, tylko lokalnie. */
+var ARKUSZ_URL = 'https://script.google.com/macros/s/AKfycbx1hHy4i5lzR1OUMYvEW9o9eTrX4oHKps9xVcS4zQ1sAmLgt5u5mq0kRMMnafDKfw26/exec';
+var ARKUSZ_KLUCZ = 'DLVKX-DLP9H-RO9BL-O2ZBZ';
+
+function idWiersza(w){ return ZRODLO+'|'+[w[0],w[1],w[2]].join('|').toLowerCase().replace(/\s+/g,' ').trim(); }
+function wyslaneID(){ try{ return JSON.parse(localStorage.getItem(KLUCZ+'_wyslane')||'[]'); }catch(e){ return []; } }
+function zapiszWyslane(l){ try{ localStorage.setItem(KLUCZ+'_wyslane', JSON.stringify(l)); }catch(e){} }
+function oznaczWyslany(id){ var l=wyslaneID(); if(l.indexOf(id)<0){ l.push(id); zapiszWyslane(l); } }
+function cofnijWyslany(id){ var l=wyslaneID(), i=l.indexOf(id); if(i>=0){ l.splice(i,1); zapiszWyslane(l); } }
+function ileCzeka(){ var l=wyslaneID(); return czytaj().filter(function(w){ return l.indexOf(idWiersza(w))<0; }).length; }
+
+function wyslij(w){
+  if(!ARKUSZ_URL) return Promise.resolve({ok:false, powod:'wyłączone'});
+  var id=idWiersza(w);
+  return fetch(ARKUSZ_URL, {
+    method:'POST',
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body: JSON.stringify({ klucz:ARKUSZ_KLUCZ, zrodlo:ZRODLO, id:id,
+                           naglowki:NAGLOWKI.map(function(h){return h.tytul;}), wiersz:w })
+  }).then(function(o){ return o.json(); })
+    .then(function(d){
+      if(d && d.ok){ oznaczWyslany(id); return {ok:true}; }
+      return {ok:false, powod:(d&&d.blad)||'arkusz odmówił zapisu'};
+    })
+    .catch(function(){ return {ok:false, powod:'brak połączenia'}; });
+}
+
+function wyslijZalegle(){
+  if(!ARKUSZ_URL){ alert('Wysyłka do arkusza nie jest jeszcze skonfigurowana.'); return; }
+  var l=wyslaneID();
+  var doWyslania=czytaj().filter(function(w){ return l.indexOf(idWiersza(w))<0; });
+  if(!doWyslania.length){ alert('Wszystko jest już w arkuszu — nic nie czeka.'); return; }
+  var ok=0, bledy=[];
+  (function nastepny(i){
+    if(i>=doWyslania.length){
+      odswiez();
+      alert('Wysłano do arkusza: '+ok+' z '+doWyslania.length+'.'+(bledy.length?'\n\nNie poszło: '+bledy[0]:''));
+      return;
+    }
+    wyslij(doWyslania[i]).then(function(r){
+      if(r.ok) ok++; else if(bledy.indexOf(r.powod)<0) bledy.push(r.powod);
+      odswiez();
+      nastepny(i+1);
+    });
+  })(0);
+}
+
+var NAZWA='Ewaluator Junior — rejestr';
+var NAGLOWKI=[
+  {tytul:'Data ewaluacji',szer:14,data:true},
+  {tytul:'Imię',szer:14},{tytul:'Nazwisko',szer:16},
+  {tytul:'Telefon',szer:16},{tytul:'E-mail',szer:26},
+  {tytul:'Lektor / metodyk',szer:18},{tytul:'Lokalizacja',szer:30},
+  {tytul:'Rodzic / opiekun',szer:22},
+  {tytul:'Wiek',szer:7},{tytul:'Ścieżka',szer:26},{tytul:'Wynik testu (pkt)',szer:16},
+  {tytul:'Kurs — sugestia',szer:32},{tytul:'Kurs — decyzja',szer:32},
+  {tytul:'Sugerowana grupa',szer:34},{tytul:'Status',szer:18},
+  {tytul:'Cel wizyty',szer:34},
+  {tytul:'Uzasadnienie',szer:40},{tytul:'Wskazówki dla lektora',szer:40},{tytul:'Notatki z rozmowy',szer:40}
+];
+
+function zbierzWiersz(){
+  var s=(typeof state!=='undefined'&&state)?state:{};
+  var st=s.student||{};
+  var v=function(id){var e=document.getElementById(id);return e?String(e.value||'').trim():'';};
+  var imie=String(st.fname||'').trim(), nazwisko=String(st.lname||'').trim();
+  if(!imie && !nazwisko) return null;
+  var SCIEZKA={teddy:'Teddy Eddie (przedszkole, bez testu)',primary:'Szkoła podstawowa (test)',teen:'Klasy 7–8 / szkoła średnia'};
+  var cele=(s.chips&&s.chips['q-goal'])?s.chips['q-goal']:[];
+  // Teddy Eddie nie ma testu -> komorka zostaje pusta, zeby kolumna byla czysto liczbowa
+  // i dala sie sortowac oraz usredniac. Sciezka i tak mowi 'bez testu'.
+  var punkty=(s.ageType==='teddy')?'':((s.score||s.score===0)?s.score:'');
+  var sugestia=s.suggestedCourse||'';
+  return [
+    String(st.evalDate||'').trim(), imie, nazwisko,
+    String(st.telefon||'').trim(), String(st.email||'').trim(),
+    String(st.lektor||'').trim(), String(st.location||'').trim(),
+    String(st.parent||'').trim(),
+    (s.age||s.age===0)?s.age:'', SCIEZKA[s.ageType]||s.ageType||'', punkty,
+    sugestia, v('final-course')||sugestia,
+    v('final-grupa'), v('final-status'),
+    (cele.join?cele.join('; '):''),
+    v('final-reason'), v('final-tips'), v('note-convo')
+  ];
+}
+
+function czytaj(){try{var s=localStorage.getItem(KLUCZ);return s?JSON.parse(s):[];}catch(e){return [];}}
+function pisz(a){try{localStorage.setItem(KLUCZ,JSON.stringify(a));return true;}catch(e){return false;}}
+function klucz(w){return [w[0],w[1],w[2]].join('|').toLowerCase().replace(/\s+/g,' ').trim();}
+
+function dopisz(){
+  var w;
+  try{ w=zbierzWiersz(); }catch(e){ alert('Nie udało się odczytać wyniku ewaluacji.'); return; }
+  if(!w){ alert('Najpierw uzupełnij imię lub nazwisko ucznia — bez tego nie ma czego dopisać do rejestru.'); return; }
+  var rej=czytaj(),k=klucz(w),i=-1,j;
+  for(j=0;j<rej.length;j++){ if(klucz(rej[j])===k){ i=j; break; } }
+  if(i>=0){
+    if(!confirm('W rejestrze jest już wpis dla tej osoby z tą datą.\n\nZastąpić go dzisiejszym wynikiem?')) return;
+    rej[i]=w;
+  } else { rej.push(w); }
+  if(!pisz(rej)){ alert('Nie udało się zapisać rejestru w tej przeglądarce (może być pełna pamięć albo tryb prywatny).'); return; }
+  if(i>=0) cofnijWyslany(idWiersza(w));   /* poprawiony wpis ma pójść do arkusza jeszcze raz */
+  odswiez();
+  if(ARKUSZ_URL) wyslij(w).then(odswiez);
+  alert((i>=0?'Wpis zaktualizowany.':'Dopisano do rejestru.')+'\n\nW rejestrze jest teraz '+rej.length+' '+(rej.length===1?'ewaluacja':(rej.length<5?'ewaluacje':'ewaluacji'))+'.');
+}
+
+function pobierz(){
+  var rej=czytaj();
+  if(!rej.length){ alert('Rejestr jest pusty. Najpierw kliknij „Dopisz do rejestru” przy zakończonej ewaluacji.'); return; }
+  var dane,blob,url,a,d,p;
+  try{ dane=xlsx(NAGLOWKI,rej); }catch(e){ alert('Nie udało się zbudować pliku Excela.'); return; }
+  blob=new Blob([dane],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  d=new Date(); p=function(n){return (n<10?'0':'')+n;};
+  url=URL.createObjectURL(blob);
+  a=document.createElement('a');
+  a.href=url;
+  a.download=NAZWA+' '+d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+'.xlsx';
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){ URL.revokeObjectURL(url); if(a.parentNode) a.parentNode.removeChild(a); },2000);
+}
+
+function wyczysc(){
+  var rej=czytaj();
+  if(!rej.length){ alert('Rejestr jest już pusty.'); return; }
+  if(!confirm('Usunąć z rejestru wszystkie wpisy ('+rej.length+')?\n\nNajpierw pobierz plik Excela — tego nie da się cofnąć.')) return;
+  try{ localStorage.removeItem(KLUCZ); }catch(e){}
+  odswiez();
+}
+
+function odswiez(){
+  var n=czytaj().length,el=document.querySelectorAll('[data-rejestr-licznik]'),i;
+  for(i=0;i<el.length;i++){ el[i].textContent = n ? '📊 Pobierz Excel ('+n+')' : '📊 Pobierz Excel'; }
+  var wiersze=document.querySelectorAll('[data-arkusz-wiersz]');
+  for(i=0;i<wiersze.length;i++){ wiersze[i].style.display = ARKUSZ_URL ? 'flex' : 'none'; }
+  if(!ARKUSZ_URL) return;
+  var czeka=ileCzeka();
+  var st=document.querySelectorAll('[data-arkusz-status]');
+  for(i=0;i<st.length;i++){
+    st[i].textContent = czeka
+      ? '☁️ Arkusz Google: czeka '+czeka+' '+(czeka===1?'wpis':(czeka<5?'wpisy':'wpisów'))+' na wysłanie'
+      : (n ? '☁️ Arkusz Google: wszystko wysłane' : '☁️ Arkusz Google: podłączony');
+  }
+}
+
+window.PLRejestr={dopisz:dopisz,pobierz:pobierz,wyczysc:wyczysc,odswiez:odswiez,
+  wyslijZalegle:wyslijZalegle,ileCzeka:ileCzeka,ile:function(){return czytaj().length;}};
+function start(){
+  odswiez();
+  if(!ARKUSZ_URL) return;
+  var l=wyslaneID();
+  var zalegle=czytaj().filter(function(w){ return l.indexOf(idWiersza(w))<0; });
+  /* po cichu, bez okienek — jeśli nie wyjdzie, wpisy dalej czekają */
+  zalegle.slice(0,5).forEach(function(w){ wyslij(w).then(odswiez); });
+}
+if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start); else start();
+})();
 </script>
 </body>
 </html>
