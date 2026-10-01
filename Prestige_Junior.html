@@ -677,6 +677,16 @@ body{background:var(--e-bg);color:var(--e-ink);
 .qual-link.interp{color:var(--e-brand) !important;border-color:var(--e-brand) !important;}
 .qual-link.interp:hover{background:var(--e-brand-soft) !important;color:#fff !important;}
 </style>
+<style>
+.ank-opts{display:flex;flex-direction:column;gap:6px}
+.ank-opt{text-align:left;font:inherit;font-size:13.5px;line-height:1.4;padding:9px 12px;border:1px solid var(--e-line,#E3E8F0);border-radius:10px;background:var(--e-surface-2,#F8FAFD);color:var(--e-ink,#14181F);cursor:pointer;display:flex;gap:10px;align-items:center;width:100%}
+.ank-opt b{width:22px;height:22px;border-radius:50%;background:var(--e-line-2,#EDF1F7);color:var(--e-ink-2,#3D4757);display:inline-flex;align-items:center;justify-content:center;font-size:12px;flex:none}
+.ank-opt:hover{border-color:var(--e-brand-soft,#5B8FCE)}
+.ank-opt.selected{border-color:var(--e-brand,#2F5C97);background:var(--e-tint,#EDF3FB)}
+.ank-opt.selected b{background:var(--e-brand,#2F5C97);color:#fff}
+.ank-sub{font-size:12.5px;color:var(--e-ink-3,#6B7688);margin:-4px 0 12px}
+.ank-q{margin-bottom:14px}
+</style>
 </head>
 <body>
 
@@ -750,18 +760,13 @@ body{background:var(--e-bg);color:var(--e-ink);
   </div>
 
   <div class="card">
-    <div class="card-title">💬 Cel wizyty (od rodzica)</div>
-    <div class="form-group" style="margin-bottom:10px;">
-      <label class="form-label">Co chce osiągnąć?</label>
-      <div class="chip-wrap" id="q-goal">
-        <button class="chip" onclick="toggleChip('q-goal','Lepsze oceny w szkole')">Lepsze oceny</button>
-        <button class="chip" onclick="toggleChip('q-goal','Swobodne mówienie')">Swobodne mówienie</button>
-        <button class="chip" onclick="toggleChip('q-goal','Egzamin Cambridge')">Egzamin Cambridge</button>
-        <button class="chip" onclick="toggleChip('q-goal','Nadrobienie zaległości')">Nadrobienie zaległości</button>
-        <button class="chip" onclick="toggleChip('q-goal','Ogólny rozwój')">Ogólny rozwój</button>
-        <button class="chip" onclick="toggleChip('q-goal','Przygotowanie do egzaminu 8-klasisty')">Egzamin 8-klasisty</button>
-      </div>
-    </div>
+    <div class="card-title">💬 Kwestionariusz dla rodzica i dziecka</div>
+    <div class="ank-sub">Pięć pytań, jedna odpowiedź w każdym. Rodzic może zaznaczyć sam na ekranie. Odpowiedzi trafią do sugestii kursu, do karty dla rodzica i do rejestru.</div>
+      <div class="form-group ank-q"><label class="form-label">1. Po co przychodzicie?</label><div class="ank-opts" id="ank-j1"><button type="button" class="ank-opt" data-l="a" onclick="ankieta('ank-j1','a) lepsze oceny w szkole')"><b>a</b><span>lepsze oceny w szkole</span></button><button type="button" class="ank-opt" data-l="b" onclick="ankieta('ank-j1','b) żeby dziecko mówiło swobodnie')"><b>b</b><span>żeby dziecko mówiło swobodnie</span></button><button type="button" class="ank-opt" data-l="c" onclick="ankieta('ank-j1','c) egzamin: Cambridge, ósmoklasisty albo matura')"><b>c</b><span>egzamin: Cambridge, ósmoklasisty albo matura</span></button><button type="button" class="ank-opt" data-l="d" onclick="ankieta('ank-j1','d) nadrobienie zaległości')"><b>d</b><span>nadrobienie zaległości</span></button></div></div>
+      <div class="form-group ank-q"><label class="form-label">2. Ile angielskiego miało dziecko do tej pory?</label><div class="ank-opts" id="ank-j2"><button type="button" class="ank-opt" data-l="a" onclick="ankieta('ank-j2','a) tylko w szkole')"><b>a</b><span>tylko w szkole</span></button><button type="button" class="ank-opt" data-l="b" onclick="ankieta('ank-j2','b) szkoła i wcześniejszy kurs')"><b>b</b><span>szkoła i wcześniejszy kurs</span></button><button type="button" class="ank-opt" data-l="c" onclick="ankieta('ank-j2','c) kurs od kilku lat')"><b>c</b><span>kurs od kilku lat</span></button><button type="button" class="ank-opt" data-l="d" onclick="ankieta('ank-j2','d) prawie wcale')"><b>d</b><span>prawie wcale</span></button></div></div>
+      <div class="form-group ank-q"><label class="form-label">3. Jak dziecko reaguje na mówienie po angielsku?</label><div class="ank-opts" id="ank-j3"><button type="button" class="ank-opt" data-l="a" onclick="ankieta('ank-j3','a) chętnie')"><b>a</b><span>chętnie</span></button><button type="button" class="ank-opt" data-l="b" onclick="ankieta('ank-j3','b) mówi, gdy ktoś zapyta')"><b>b</b><span>mówi, gdy ktoś zapyta</span></button><button type="button" class="ank-opt" data-l="c" onclick="ankieta('ank-j3','c) wstydzi się')"><b>c</b><span>wstydzi się</span></button><button type="button" class="ank-opt" data-l="d" onclick="ankieta('ank-j3','d) unika')"><b>d</b><span>unika</span></button></div></div>
+      <div class="form-group ank-q"><label class="form-label">4. Jakie tempo będzie dobre?</label><div class="ank-opts" id="ank-j4"><button type="button" class="ank-opt" data-l="a" onclick="ankieta('ank-j4','a) szybkie, dziecko lubi wyzwania')"><b>a</b><span>szybkie, dziecko lubi wyzwania</span></button><button type="button" class="ank-opt" data-l="b" onclick="ankieta('ank-j4','b) zwykłe')"><b>b</b><span>zwykłe</span></button><button type="button" class="ank-opt" data-l="c" onclick="ankieta('ank-j4','c) spokojne, bez presji')"><b>c</b><span>spokojne, bez presji</span></button><button type="button" class="ank-opt" data-l="d" onclick="ankieta('ank-j4','d) nie wiem, doradźcie')"><b>d</b><span>nie wiem, doradźcie</span></button></div></div>
+      <div class="form-group ank-q"><label class="form-label">5. Czego rodzic oczekuje od szkoły?</label><div class="ank-opts" id="ank-j5"><button type="button" class="ank-opt" data-l="a" onclick="ankieta('ank-j5','a) widocznych postępów w rok')"><b>a</b><span>widocznych postępów w rok</span></button><button type="button" class="ank-opt" data-l="b" onclick="ankieta('ank-j5','b) regularnej informacji o dziecku')"><b>b</b><span>regularnej informacji o dziecku</span></button><button type="button" class="ank-opt" data-l="c" onclick="ankieta('ank-j5','c) przygotowania do konkretnego egzaminu')"><b>c</b><span>przygotowania do konkretnego egzaminu</span></button><button type="button" class="ank-opt" data-l="d" onclick="ankieta('ank-j5','d) żeby dziecko polubiło angielski')"><b>d</b><span>żeby dziecko polubiło angielski</span></button></div></div>
     <div class="form-group">
       <label class="form-label">Notatka (opcjonalnie)</label>
       <textarea class="notes-ta" id="note-goal" placeholder="Dodatkowe informacje od rodzica..." oninput="sn('goal',this.value)"></textarea>
@@ -1368,23 +1373,30 @@ function buildResult(){
      Do 30.08.2026 odpowiedź na „co chcę osiągnąć" zapisywała się
      i nie była nigdzie odczytywana. Teraz dokłada notatkę do wyniku.
      Fakty o egzaminach zweryfikowane u wydawcy metody 16.08.2026. */
-  const cele = (state.chips && state.chips['q-goal']) || [];
-  if(cele.length){
-    const NOTY = {
-      'Egzamin Cambridge': (state.ageType==='teddy')
-        ? '<strong>Teddy Eddie nie przygotowuje do żadnego egzaminu.</strong> Faktyczne przygotowanie zaczyna się w Savvy Ed. Rodzicowi powiedz, że to kolejny etap ścieżki, nie brak oferty.'
-        : 'Egzaminy dziecięce zdaje się <strong>w ramach kursu, na który dziecko już chodzi</strong>, nie kupuje się do nich osobnego kursu. Starters w Savvy Ed 1, Movers w Savvy Ed 2, Flyers w Savvy Ed 3, KET i PET w Edward&#39;s League.',
-      'Egzamin 8-klasisty': 'Kurs <strong>Egzamin Ósmoklasisty</strong> to osobna pozycja w ofercie, poza tym ewaluatorem. Sugestię powyżej traktuj jako kurs główny.',
-      'Nadrobienie zaległości': 'Rozważ mniejszą grupę albo zajęcia indywidualne. <strong>Sprawdź dostępność, zanim podasz termin.</strong>',
-      'Lepsze oceny': 'Nasze zajęcia <strong>nie są korepetycjami</strong>. Gotowa odpowiedź dla rodzica jest w Kompendium Sekretariatu, w rozdziale Trudne rozmowy.',
-      'Swobodne mówienie': 'Zgodne z profilem kursów dziecięcych. Można to powiedzieć rodzicowi wprost.'
-    };
-    const pozycje = cele.filter(c=>NOTY[c]).map(c=>
-      `<div style="margin-top:8px"><div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--slate,#5A6172);font-weight:700">${c}</div>`+
-      `<div style="font-size:13px;line-height:1.6;margin-top:3px">${NOTY[c]}</div></div>`).join('');
-    if(pozycje){
-      html += `<div class="card"><div class="card-title" style="font-size:14px;">💬 Cel wizyty, co z nim zrobić</div>${pozycje}</div>`;
-    }
+  const odpJ = state.chips || {};
+  const literaJ = g => ((odpJ[g]||[])[0]||'').charAt(0);
+  const NOTY = [];
+  const q1=literaJ('ank-j1'), q2=literaJ('ank-j2'), q3=literaJ('ank-j3'), q4=literaJ('ank-j4'), q5=literaJ('ank-j5');
+  if(q1==='c') NOTY.push(['Cel: egzamin', (state.ageType==='teddy')
+      ? '<strong>Teddy Eddie nie przygotowuje do żadnego egzaminu.</strong> Faktyczne przygotowanie zaczyna się w Savvy Ed. Rodzicowi powiedz, że to kolejny etap ścieżki, nie brak oferty.'
+      : 'Egzaminy dziecięce zdaje się <strong>w ramach kursu, na który dziecko już chodzi</strong>, nie kupuje się do nich osobnego kursu. Starters w Savvy Ed 1, Movers w Savvy Ed 2, Flyers w Savvy Ed 3, KET i PET w Edward’s League. Egzamin ósmoklasisty i matura to osobne kursy: Egzamin ósmoklasisty i Kurs maturalny.']);
+  if(q1==='a') NOTY.push(['Cel: lepsze oceny', 'Nasze zajęcia <strong>nie są korepetycjami</strong>. Gotowa odpowiedź dla rodzica jest w Kompendium Sekretariatu, w rozdziale Trudne rozmowy.']);
+  if(q1==='d') NOTY.push(['Cel: nadrobienie zaległości', 'Rozważ spokojniejszą ścieżkę (The Bearton Twins) albo grupę o poziom niżej. <strong>Sprawdź dostępność, zanim podasz termin.</strong>']);
+  if(q1==='b') NOTY.push(['Cel: swobodne mówienie', 'Zgodne z profilem kursów dziecięcych. Można to powiedzieć rodzicowi wprost.']);
+  if(q2==='d') NOTY.push(['Kontakt z językiem: prawie wcale', 'Przy wyniku testu blisko progu wybierz niższy poziom. Lepiej, żeby dziecko zaczęło od sukcesu.']);
+  if(q2==='c') NOTY.push(['Kurs od kilku lat', 'Zapytaj, z jakiego programu dziecko przychodzi, i poproś o ostatni certyfikat albo zeszyt.']);
+  if(q3==='c'||q3==='d') NOTY.push(['Dziecko wstydzi się mówić', 'Powiedz lektorowi przed pierwszą lekcją. Pierwsze tygodnie bez wywoływania do odpowiedzi przy całej grupie.']);
+  if(q4==='c') NOTY.push(['Tempo: spokojne', 'Jeśli wynik testu pozwala na dwa kursy, wybierz The Bearton Twins albo niższy poziom ścieżki głównej.']);
+  if(q4==='a') NOTY.push(['Tempo: szybkie', 'Jeśli wynik jest na górnej granicy progu, zaproponuj wyższy poziom i kwalifikator.']);
+  if(q5==='a') NOTY.push(['Rodzic oczekuje widocznych postępów w rok', 'Ustaw oczekiwania na rozmowie: powiedz, co dziecko będzie umiało po roku na tym poziomie.']);
+  if(q5==='b') NOTY.push(['Rodzic chce regularnej informacji', 'Zapisz w notatce. Obdzwonka powitalna po 2–3 tygodniach, potem mail o postępach.']);
+  if(q5==='c') NOTY.push(['Konkretny egzamin', 'Ustal, który i kiedy. Tabela „który egzamin w którym kursie" jest w kompendium, rozdział Kursy.']);
+  if(q5==='d') NOTY.push(['Żeby dziecko polubiło angielski', 'To cel numer jeden. Wybierz grupę po charakterze lektora, nie tylko po poziomie.']);
+  if(NOTY.length){
+    const pozycje = NOTY.map(p =>
+      `<div style="margin-top:8px"><div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--slate,#5A6172);font-weight:700">${p[0]}</div>`+
+      `<div style="font-size:13px;line-height:1.6;margin-top:3px">${p[1]}</div></div>`).join('');
+    html += `<div class="card"><div class="card-title" style="font-size:14px;">💬 Kwestionariusz, co z tego wynika</div>${pozycje}</div>`;
   }
 
   rc.innerHTML=html;
@@ -1443,6 +1455,25 @@ function buildFinalSummary(){
   const fc=document.getElementById('final-course');
   if(fc&&!fc.value&&course!=='—') fc.value=course;
 }
+
+// ═══════════ KWESTIONARIUSZ a/b/c/d (30.09.2026) ═══════════
+var ANK_J=['ank-j1','ank-j2','ank-j3','ank-j4','ank-j5'];
+var ANK_CEL={a:'Lepsze oceny w szkole',b:'Swobodne mówienie',c:'Egzamin',d:'Nadrobienie zaległości'};
+function ankieta(gid, tekst){
+  if(!state.chips) state.chips={};
+  state.chips[gid]=[tekst];
+  if(gid==='ank-j1') state.chips['q-goal']=[ANK_CEL[tekst.charAt(0)]||tekst];
+  saveState(); ankietaOdswiez(gid);
+}
+function ankietaOdswiez(gid){
+  var c=document.getElementById(gid); if(!c) return;
+  var v=((state.chips||{})[gid]||[])[0]||'';
+  c.querySelectorAll('.ank-opt').forEach(function(b){ b.classList.toggle('selected', !!v && v.charAt(0)===b.getAttribute('data-l')); });
+}
+function ankietaTekst(){
+  return ANK_J.map(function(g,i){ var v=((state.chips||{})[g]||[])[0]; return v ? (i+1)+v : ''; }).filter(Boolean).join('; ');
+}
+document.addEventListener('DOMContentLoaded', function(){ setTimeout(function(){ ANK_J.forEach(ankietaOdswiez); }, 250); });
 
 // ═══════════ CHIPS ═══════════
 function toggleChip(groupId, value){
@@ -2031,7 +2062,7 @@ var NAGLOWKI=[
   {tytul:'Kurs — sugestia',szer:32},{tytul:'Kurs — decyzja',szer:32},
   {tytul:'Sugerowana grupa',szer:34},{tytul:'Status',szer:18},
   {tytul:'Cel wizyty',szer:34},
-  {tytul:'Uzasadnienie',szer:40},{tytul:'Wskazówki dla lektora',szer:40},{tytul:'Notatki z rozmowy',szer:40}
+  {tytul:'Uzasadnienie',szer:40},{tytul:'Wskazówki dla lektora',szer:40},{tytul:'Notatki z rozmowy',szer:40},{tytul:'Kwestionariusz',szer:70}
 ];
 
 function zbierzWiersz(){
@@ -2055,7 +2086,7 @@ function zbierzWiersz(){
     sugestia, v('final-course')||sugestia,
     v('final-grupa'), v('final-status'),
     (cele.join?cele.join('; '):''),
-    v('final-reason'), v('final-tips'), v('note-convo')
+    v('final-reason'), v('final-tips'), v('note-convo'), ankietaTekst()
   ];
 }
 
