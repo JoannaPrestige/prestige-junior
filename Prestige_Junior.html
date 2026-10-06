@@ -761,7 +761,7 @@ body{background:var(--e-bg);color:var(--e-ink);
 
   <div class="card">
     <div class="card-title">💬 Kwestionariusz dla rodzica i dziecka</div>
-    <div class="ank-sub">Pięć pytań, jedna odpowiedź w każdym. Rodzic może zaznaczyć sam na ekranie. Odpowiedzi trafią do sugestii kursu, do karty dla rodzica i do rejestru.</div>
+    <div class="ank-sub">Pięć pytań. W pytaniach 1 i 5 można zaznaczyć <strong>do trzech odpowiedzi</strong>, w pozostałych jedną. Rodzic może zaznaczyć sam na ekranie. Odpowiedzi trafią do sugestii kursu, do karty dla rodzica i do rejestru.</div>
       <div class="form-group ank-q"><label class="form-label">1. Po co przychodzicie?</label><div class="ank-opts" id="ank-j1"><button type="button" class="ank-opt" data-l="a" onclick="ankieta('ank-j1','a) lepsze oceny w szkole')"><b>a</b><span>lepsze oceny w szkole</span></button><button type="button" class="ank-opt" data-l="b" onclick="ankieta('ank-j1','b) żeby dziecko mówiło swobodnie')"><b>b</b><span>żeby dziecko mówiło swobodnie</span></button><button type="button" class="ank-opt" data-l="c" onclick="ankieta('ank-j1','c) egzamin: Cambridge, ósmoklasisty albo matura')"><b>c</b><span>egzamin: Cambridge, ósmoklasisty albo matura</span></button><button type="button" class="ank-opt" data-l="d" onclick="ankieta('ank-j1','d) nadrobienie zaległości')"><b>d</b><span>nadrobienie zaległości</span></button></div></div>
       <div class="form-group ank-q"><label class="form-label">2. Ile angielskiego miało dziecko do tej pory?</label><div class="ank-opts" id="ank-j2"><button type="button" class="ank-opt" data-l="a" onclick="ankieta('ank-j2','a) tylko w szkole')"><b>a</b><span>tylko w szkole</span></button><button type="button" class="ank-opt" data-l="b" onclick="ankieta('ank-j2','b) szkoła i wcześniejszy kurs')"><b>b</b><span>szkoła i wcześniejszy kurs</span></button><button type="button" class="ank-opt" data-l="c" onclick="ankieta('ank-j2','c) kurs od kilku lat')"><b>c</b><span>kurs od kilku lat</span></button><button type="button" class="ank-opt" data-l="d" onclick="ankieta('ank-j2','d) prawie wcale')"><b>d</b><span>prawie wcale</span></button></div></div>
       <div class="form-group ank-q"><label class="form-label">3. Jak dziecko reaguje na mówienie po angielsku?</label><div class="ank-opts" id="ank-j3"><button type="button" class="ank-opt" data-l="a" onclick="ankieta('ank-j3','a) chętnie')"><b>a</b><span>chętnie</span></button><button type="button" class="ank-opt" data-l="b" onclick="ankieta('ank-j3','b) mówi, gdy ktoś zapyta')"><b>b</b><span>mówi, gdy ktoś zapyta</span></button><button type="button" class="ank-opt" data-l="c" onclick="ankieta('ank-j3','c) wstydzi się')"><b>c</b><span>wstydzi się</span></button><button type="button" class="ank-opt" data-l="d" onclick="ankieta('ank-j3','d) unika')"><b>d</b><span>unika</span></button></div></div>
@@ -989,46 +989,86 @@ body{background:var(--e-bg);color:var(--e-ink);
     <div class="convo-q"><div class="convo-q-num">6</div><div>Czy uczysz się angielskiego w szkole? Jak Ci idzie na lekcjach?</div></div>
   </div>
 
-  <!-- PYTANIA EN: 7–9 LAT -->
+  <!-- PYTANIA EN: POZIOMY CEFR -->
+
+  <div class="convo-block"><div class="convo-block-hdr">🧭 Jak prowadzić tę rozmowę</div><div class="convo-pl">Celem nie jest odpytanie z listy, tylko znalezienie granicy, na której dziecko przestaje sobie radzić.</div><div class="convo-q"><div class="convo-q-num">1</div><div><strong>Zacznij od poziomu z testu.</strong> Zadaj 2–3 pytania. Odpowiada swobodnie i rozwija zdania — wejdź poziom wyżej. Odpowiada pojedynczymi słowami albo milczy — zejdź poziom niżej.</div></div><div class="convo-q"><div class="convo-q-num">2</div><div><strong>Jedno powtórzenie.</strong> Powtórz wolniej i prostszymi słowami. Jeśli dziecko nadal nie rozumie, to jest ta granica — schodzisz niżej. Nie tłumacz na polski w środku części angielskiej.</div></div><div class="convo-q"><div class="convo-q-num">3</div><div><strong>Oceniaj gotowość, nie zasób słów.</strong> Dziecko, które nie zna nazwy ubrania, ale mówi „this is blue", radzi sobie komunikacyjnie. To jest informacja o poziomie, nie o braku.</div></div></div>
+
+  <div class="convo-block"><div class="convo-block-hdr">🇬🇧 Przejście na angielski</div><div class="convo-pl">„OK, let's speak English now. I'll start — my name is [imię]. Can you tell me something about yourself?"</div></div>
+
   <div class="convo-block">
-    <div class="convo-block-hdr">🇬🇧 Pytania angielskie — 7–9 lat (klasy 1–3) · poziom bardzo podstawowy</div>
-    <div class="convo-pl">„OK! Let's speak a little English now. I'll help you — don't worry! What's your name?"</div>
-    <div class="convo-q"><div class="convo-q-num">1</div><div>What's your name? How old are you?</div></div>
-    <div class="convo-q"><div class="convo-q-num">2</div><div>Do you have a pet? What is it? What's its name?</div></div>
-    <div class="convo-q"><div class="convo-q-num">3</div><div>What's your favourite colour / animal / food?</div></div>
-    <div class="convo-q"><div class="convo-q-num">4</div><div>Can you count to ten in English? (policz razem)</div></div>
-    <div class="convo-q"><div class="convo-q-num">5</div><div>Do you have any brothers or sisters?</div></div>
-    <div style="padding:8px 16px;font-size:12px;color:var(--slate);font-style:italic;">💡 Jeśli dziecko nie rozumie — przetłumacz i spróbuj jeszcze raz. Oceniaj gotowość i otwartość na angielski, nie tylko zasób słów.</div>
+  <div class="convo-block-hdr">🇬🇧 Poziom A1 — pierwsze zdania o sobie</div>
+  <div class="convo-pl"><strong>Co sprawdzasz:</strong> Przedstawia się, pyta i odpowiada o dane osobowe. Rozumie, gdy rozmówca mówi wolno i pomaga.</div>
+  <div class="convo-pl" style="font-weight:700;margin-top:10px">7–12 lat</div>
+  <div class="convo-q"><div class="convo-q-num">1</div><div>What's your name? How old are you?</div></div>
+  <div class="convo-q"><div class="convo-q-num">2</div><div>Have you got a brother or a sister?</div></div>
+  <div class="convo-q"><div class="convo-q-num">3</div><div>What's your favourite colour?</div></div>
+  <div class="convo-q"><div class="convo-q-num">4</div><div>What are you wearing? What colour is it?</div></div>
+  <div class="convo-q"><div class="convo-q-num">5</div><div>Do you have a pet? What's its name?</div></div>
+  <div class="convo-q"><div class="convo-q-num">6</div><div>Can you count from one to ten?</div></div>
+  <div class="convo-pl" style="font-weight:700;margin-top:10px">13+, początkujący</div>
+  <div class="convo-q"><div class="convo-q-num">1</div><div>What's your name? How old are you?</div></div>
+  <div class="convo-q"><div class="convo-q-num">2</div><div>Where do you live?</div></div>
+  <div class="convo-q"><div class="convo-q-num">3</div><div>What school do you go to?</div></div>
+  <div class="convo-q"><div class="convo-q-num">4</div><div>What are you wearing today? What colour is it?</div></div>
+  <div class="convo-q"><div class="convo-q-num">5</div><div>What's your favourite food?</div></div>
   </div>
 
-  <!-- PYTANIA EN: 10–12 LAT -->
   <div class="convo-block">
-    <div class="convo-block-hdr">🇬🇧 Pytania angielskie — 10–12 lat (klasy 4–6) · poziom A1/A2</div>
-    <div class="convo-pl">„Now let's switch to English! I'll start — my name is [imię] and I love travelling. Can you tell me something about yourself?"</div>
-    <div class="convo-q"><div class="convo-q-num">1</div><div>Can you tell me something about yourself?</div></div>
-    <div class="convo-q"><div class="convo-q-num">2</div><div>Do you have any brothers or sisters?</div></div>
-    <div class="convo-q"><div class="convo-q-num">3</div><div>What do you do after school? What are your hobbies?</div></div>
-    <div class="convo-q"><div class="convo-q-num">4</div><div>What's your favourite subject at school? Why?</div></div>
-    <div class="convo-q"><div class="convo-q-num">5</div><div>Do you like animals? Do you have a pet?</div></div>
-    <div class="convo-q"><div class="convo-q-num">6</div><div>Where did you spend your last holiday?</div></div>
+  <div class="convo-block-hdr">🇬🇧 Poziom A2 — codzienność prostymi zdaniami</div>
+  <div class="convo-pl"><strong>Co sprawdzasz:</strong> Prosta wymiana informacji o sprawach codziennych. Opisuje swoje otoczenie prostymi zdaniami.</div>
+  <div class="convo-pl" style="font-weight:700;margin-top:10px">7–12 lat</div>
+  <div class="convo-q"><div class="convo-q-num">1</div><div>Tell me about your family.</div></div>
+  <div class="convo-q"><div class="convo-q-num">2</div><div>What do you do after school?</div></div>
+  <div class="convo-q"><div class="convo-q-num">3</div><div>What's your favourite subject at school?</div></div>
+  <div class="convo-q"><div class="convo-q-num">4</div><div>What did you do last weekend?</div></div>
+  <div class="convo-q"><div class="convo-q-num">5</div><div>Describe your room.</div></div>
+  <div class="convo-pl" style="font-weight:700;margin-top:10px">13+</div>
+  <div class="convo-q"><div class="convo-q-num">1</div><div>Tell me about your typical day.</div></div>
+  <div class="convo-q"><div class="convo-q-num">2</div><div>What do you usually do at the weekend?</div></div>
+  <div class="convo-q"><div class="convo-q-num">3</div><div>Describe your best friend.</div></div>
+  <div class="convo-q"><div class="convo-q-num">4</div><div>What did you do in the holidays?</div></div>
   </div>
 
-  <!-- PYTANIA EN: 13+ -->
   <div class="convo-block">
-    <div class="convo-block-hdr">🇬🇧 Pytania angielskie — 13+ (klasy 7–8 i szkoła średnia) · poziom A1 → B2+</div>
-    <div class="convo-pl">„OK, so let's switch to English now. I'll start — my name is [imię], I am [wiek] years old. Can you tell me something about yourself?"</div>
-    <div style="padding:8px 16px 2px;font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.8px;border-top:1px solid var(--border);">Poziom A1/A2</div>
-    <div class="convo-q"><div class="convo-q-num">1</div><div>Can you tell me something about yourself?</div></div>
-    <div class="convo-q"><div class="convo-q-num">2</div><div>Do you have any brothers or sisters?</div></div>
-    <div class="convo-q"><div class="convo-q-num">3</div><div>What do you do after school? What are your hobbies?</div></div>
-    <div class="convo-q"><div class="convo-q-num">4</div><div>What do you do for a living? / What school do you go to?</div></div>
-    <div style="padding:8px 16px 2px;font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.8px;border-top:1px solid var(--border);">Poziom B1/B2</div>
-    <div class="convo-q"><div class="convo-q-num">5</div><div>Do you like to travel? Where have you been so far?</div></div>
-    <div class="convo-q"><div class="convo-q-num">6</div><div>Tell me about a movie or series you have recently watched.</div></div>
-    <div class="convo-q"><div class="convo-q-num">7</div><div>What do you consider to be important in life?</div></div>
-    <div style="padding:8px 16px 2px;font-size:11px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:.8px;border-top:1px solid var(--border);">Poziom C1/C2</div>
-    <div class="convo-q"><div class="convo-q-num">8</div><div>Some people prefer the countryside, others big cities. What advantages / disadvantages can you think of?</div></div>
-    <div class="convo-q"><div class="convo-q-num">9</div><div>What would you do with $1,000,000?</div></div>
+  <div class="convo-block-hdr">🇬🇧 Poziom B1 — przeżycia, plany, krótkie uzasadnienia</div>
+  <div class="convo-pl"><strong>Co sprawdzasz:</strong> Opisuje przeżycia i wydarzenia, marzenia i plany. Krótko uzasadnia opinie.</div>
+  <div class="convo-pl" style="font-weight:700;margin-top:10px">11–14 lat</div>
+  <div class="convo-q"><div class="convo-q-num">1</div><div>Tell me about a trip you really enjoyed.</div></div>
+  <div class="convo-q"><div class="convo-q-num">2</div><div>What's your favourite film? What's it about?</div></div>
+  <div class="convo-q"><div class="convo-q-num">3</div><div>What would you like to do when you grow up? Why?</div></div>
+  <div class="convo-q"><div class="convo-q-num">4</div><div>If you could change one thing about your school, what would it be?</div></div>
+  <div class="convo-pl" style="font-weight:700;margin-top:10px">15+</div>
+  <div class="convo-q"><div class="convo-q-num">1</div><div>Tell me about something you've learned recently outside school.</div></div>
+  <div class="convo-q"><div class="convo-q-num">2</div><div>What are your plans after school?</div></div>
+  <div class="convo-q"><div class="convo-q-num">3</div><div>Describe a problem you solved and how you did it.</div></div>
+  </div>
+
+  <div class="convo-block">
+  <div class="convo-block-hdr">🇬🇧 Poziom B2 — stanowisko, zalety i wady</div>
+  <div class="convo-pl"><strong>Co sprawdzasz:</strong> Przedstawia stanowisko w bieżącej sprawie, podając zalety i wady różnych rozwiązań.</div>
+  <div class="convo-pl" style="font-weight:700;margin-top:10px">13–18 lat</div>
+  <div class="convo-q"><div class="convo-q-num">1</div><div>Some students learn better alone, others in a group. Which works for you, and why?</div></div>
+  <div class="convo-q"><div class="convo-q-num">2</div><div>Do you think social media helps friendships or harms them?</div></div>
+  <div class="convo-q"><div class="convo-q-num">3</div><div>Tell me about a book or a series that changed the way you think.</div></div>
+  <div class="convo-q"><div class="convo-q-num">4</div><div>What are the advantages and disadvantages of having a part-time job while you study?</div></div>
+  </div>
+
+  <div class="convo-block">
+  <div class="convo-block-hdr">🇬🇧 Poziom C1 — płynnie i elastycznie</div>
+  <div class="convo-pl"><strong>Co sprawdzasz:</strong> Mówi płynnie i spontanicznie, bez widocznego szukania słów. Używa języka elastycznie.</div>
+  <div class="convo-pl" style="font-weight:700;margin-top:10px">15–18 lat</div>
+  <div class="convo-q"><div class="convo-q-num">1</div><div>How has the way young people communicate changed in the last ten years?</div></div>
+  <div class="convo-q"><div class="convo-q-num">2</div><div>Some people say exams measure memory, not ability. How far do you agree?</div></div>
+  <div class="convo-q"><div class="convo-q-num">3</div><div>If you could give one piece of advice to your younger self, what would it be and why?</div></div>
+  </div>
+
+  <div class="convo-block">
+  <div class="convo-block-hdr">🇬🇧 Poziom C2 — argumenty i odcienie znaczeń</div>
+  <div class="convo-pl"><strong>Co sprawdzasz:</strong> Streszcza i odtwarza argumenty z różnych źródeł. Różnicuje subtelne odcienie znaczeń.</div>
+  <div class="convo-pl" style="font-weight:700;margin-top:10px">16–18 lat</div>
+  <div class="convo-q"><div class="convo-q-num">1</div><div>Tell me about an article or a video you've seen recently — what was the author's main argument, and where was it weakest?</div></div>
+  <div class="convo-q"><div class="convo-q-num">2</div><div>To what extent should schools teach values rather than knowledge?</div></div>
+  <div class="convo-q"><div class="convo-q-num">3</div><div>Is there a difference between being right and being convincing?</div></div>
   </div>
 
   <!-- PYTANIE ZAMYKAJĄCE DO RODZICA -->
@@ -1374,24 +1414,25 @@ function buildResult(){
      i nie była nigdzie odczytywana. Teraz dokłada notatkę do wyniku.
      Fakty o egzaminach zweryfikowane u wydawcy metody 16.08.2026. */
   const odpJ = state.chips || {};
-  const literaJ = g => ((odpJ[g]||[])[0]||'').charAt(0);
+  const literyJ = g => (odpJ[g]||[]).map(t => String(t||'').charAt(0));
+  const maJ = (g,l) => literyJ(g).indexOf(l) > -1;      // pytania 1 i 5: do trzech odpowiedzi
   const NOTY = [];
-  const q1=literaJ('ank-j1'), q2=literaJ('ank-j2'), q3=literaJ('ank-j3'), q4=literaJ('ank-j4'), q5=literaJ('ank-j5');
-  if(q1==='c') NOTY.push(['Cel: egzamin', (state.ageType==='teddy')
+  const q2=(literyJ('ank-j2')[0]||''), q3=(literyJ('ank-j3')[0]||''), q4=(literyJ('ank-j4')[0]||'');
+  if(maJ('ank-j1','c')) NOTY.push(['Cel: egzamin', (state.ageType==='teddy')
       ? '<strong>Teddy Eddie nie przygotowuje do żadnego egzaminu.</strong> Faktyczne przygotowanie zaczyna się w Savvy Ed. Rodzicowi powiedz, że to kolejny etap ścieżki, nie brak oferty.'
       : 'Egzaminy dziecięce zdaje się <strong>w ramach kursu, na który dziecko już chodzi</strong>, nie kupuje się do nich osobnego kursu. Starters w Savvy Ed 1, Movers w Savvy Ed 2, Flyers w Savvy Ed 3, KET i PET w Edward’s League. Egzamin ósmoklasisty i matura to osobne kursy: Egzamin ósmoklasisty i Kurs maturalny.']);
-  if(q1==='a') NOTY.push(['Cel: lepsze oceny', 'Nasze zajęcia <strong>nie są korepetycjami</strong>. Gotowa odpowiedź dla rodzica jest w Kompendium Sekretariatu, w rozdziale Trudne rozmowy.']);
-  if(q1==='d') NOTY.push(['Cel: nadrobienie zaległości', 'Rozważ spokojniejszą ścieżkę (The Bearton Twins) albo grupę o poziom niżej. <strong>Sprawdź dostępność, zanim podasz termin.</strong>']);
-  if(q1==='b') NOTY.push(['Cel: swobodne mówienie', 'Zgodne z profilem kursów dziecięcych. Można to powiedzieć rodzicowi wprost.']);
+  if(maJ('ank-j1','a')) NOTY.push(['Cel: lepsze oceny', 'Nasze zajęcia <strong>nie są korepetycjami</strong>. Gotowa odpowiedź dla rodzica jest w Kompendium Sekretariatu, w rozdziale Trudne rozmowy.']);
+  if(maJ('ank-j1','d')) NOTY.push(['Cel: nadrobienie zaległości', 'Rozważ spokojniejszą ścieżkę (The Bearton Twins) albo grupę o poziom niżej. <strong>Sprawdź dostępność, zanim podasz termin.</strong>']);
+  if(maJ('ank-j1','b')) NOTY.push(['Cel: swobodne mówienie', 'Zgodne z profilem kursów dziecięcych. Można to powiedzieć rodzicowi wprost.']);
   if(q2==='d') NOTY.push(['Kontakt z językiem: prawie wcale', 'Przy wyniku testu blisko progu wybierz niższy poziom. Lepiej, żeby dziecko zaczęło od sukcesu.']);
   if(q2==='c') NOTY.push(['Kurs od kilku lat', 'Zapytaj, z jakiego programu dziecko przychodzi, i poproś o ostatni certyfikat albo zeszyt.']);
   if(q3==='c'||q3==='d') NOTY.push(['Dziecko wstydzi się mówić', 'Powiedz lektorowi przed pierwszą lekcją. Pierwsze tygodnie bez wywoływania do odpowiedzi przy całej grupie.']);
   if(q4==='c') NOTY.push(['Tempo: spokojne', 'Jeśli wynik testu pozwala na dwa kursy, wybierz The Bearton Twins albo niższy poziom ścieżki głównej.']);
   if(q4==='a') NOTY.push(['Tempo: szybkie', 'Jeśli wynik jest na górnej granicy progu, zaproponuj wyższy poziom i kwalifikator.']);
-  if(q5==='a') NOTY.push(['Rodzic oczekuje widocznych postępów w rok', 'Ustaw oczekiwania na rozmowie: powiedz, co dziecko będzie umiało po roku na tym poziomie.']);
-  if(q5==='b') NOTY.push(['Rodzic chce regularnej informacji', 'Zapisz w notatce. Obdzwonka powitalna po 2–3 tygodniach, potem mail o postępach.']);
-  if(q5==='c') NOTY.push(['Konkretny egzamin', 'Ustal, który i kiedy. Tabela „który egzamin w którym kursie" jest w kompendium, rozdział Kursy.']);
-  if(q5==='d') NOTY.push(['Żeby dziecko polubiło angielski', 'To cel numer jeden. Wybierz grupę po charakterze lektora, nie tylko po poziomie.']);
+  if(maJ('ank-j5','a')) NOTY.push(['Rodzic oczekuje widocznych postępów w rok', 'Ustaw oczekiwania na rozmowie: powiedz, co dziecko będzie umiało po roku na tym poziomie.']);
+  if(maJ('ank-j5','b')) NOTY.push(['Rodzic chce regularnej informacji', 'Zapisz w notatce. Obdzwonka powitalna po 2–3 tygodniach, potem mail o postępach.']);
+  if(maJ('ank-j5','c')) NOTY.push(['Konkretny egzamin', 'Ustal, który i kiedy. Tabela „który egzamin w którym kursie" jest w kompendium, rozdział Kursy.']);
+  if(maJ('ank-j5','d')) NOTY.push(['Żeby dziecko polubiło angielski', 'To cel numer jeden. Wybierz grupę po charakterze lektora, nie tylko po poziomie.']);
   if(NOTY.length){
     const pozycje = NOTY.map(p =>
       `<div style="margin-top:8px"><div style="font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--slate,#5A6172);font-weight:700">${p[0]}</div>`+
@@ -1458,20 +1499,42 @@ function buildFinalSummary(){
 
 // ═══════════ KWESTIONARIUSZ a/b/c/d (30.09.2026) ═══════════
 var ANK_J=['ank-j1','ank-j2','ank-j3','ank-j4','ank-j5'];
+/* Pytania 1 i 5 dopuszczają do trzech odpowiedzi (decyzja Joanny 4.10.2026) —
+   to te, w których rodzic realnie ma kilka powodów naraz. W pozostałych
+   odpowiedzi się wykluczają, więc zostaje jedna. */
+var ANK_WIELE=['ank-j1','ank-j5'];
+var ANK_MAX=3;
 var ANK_CEL={a:'Lepsze oceny w szkole',b:'Swobodne mówienie',c:'Egzamin',d:'Nadrobienie zaległości'};
 function ankieta(gid, tekst){
   if(!state.chips) state.chips={};
-  state.chips[gid]=[tekst];
-  if(gid==='ank-j1') state.chips['q-goal']=[ANK_CEL[tekst.charAt(0)]||tekst];
+  if(ANK_WIELE.indexOf(gid)>-1){
+    var lista=(state.chips[gid]||[]).slice();
+    var i=lista.indexOf(tekst);
+    if(i>=0) lista.splice(i,1);
+    else if(lista.length<ANK_MAX) lista.push(tekst);
+    state.chips[gid]=lista;
+  } else {
+    state.chips[gid]=[tekst];
+  }
+  if(gid==='ank-j1') state.chips['q-goal']=(state.chips['ank-j1']||[]).map(function(t){ return ANK_CEL[t.charAt(0)]||t; });
   saveState(); ankietaOdswiez(gid);
 }
 function ankietaOdswiez(gid){
   var c=document.getElementById(gid); if(!c) return;
-  var v=((state.chips||{})[gid]||[])[0]||'';
-  c.querySelectorAll('.ank-opt').forEach(function(b){ b.classList.toggle('selected', !!v && v.charAt(0)===b.getAttribute('data-l')); });
+  var litery=((state.chips||{})[gid]||[]).map(function(t){ return String(t).charAt(0); });
+  var pelno=(ANK_WIELE.indexOf(gid)>-1 && litery.length>=ANK_MAX);
+  c.querySelectorAll('.ank-opt').forEach(function(b){
+    var l=b.getAttribute('data-l'), wybrana=litery.indexOf(l)>-1;
+    b.classList.toggle('selected', wybrana);
+    /* komplet trzech: reszta przygaszona, żeby było widać, że to już maksimum */
+    b.style.opacity = (pelno && !wybrana) ? '.45' : '';
+  });
 }
 function ankietaTekst(){
-  return ANK_J.map(function(g,i){ var v=((state.chips||{})[g]||[])[0]; return v ? (i+1)+v : ''; }).filter(Boolean).join('; ');
+  return ANK_J.map(function(g,i){
+    var l=((state.chips||{})[g]||[]).map(function(t){ return String(t).charAt(0); });
+    return l.length ? (i+1)+l.join(',') : '';
+  }).filter(Boolean).join('; ');
 }
 document.addEventListener('DOMContentLoaded', function(){ setTimeout(function(){ ANK_J.forEach(ankietaOdswiez); }, 250); });
 
